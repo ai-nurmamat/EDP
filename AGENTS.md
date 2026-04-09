@@ -210,3 +210,20 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+---
+
+## 📁 OpenClaw 工作区标准文件
+
+每个 agent 工作区都使用以下标准文件：
+
+| 文件 | 用途 |
+|------|------|
+| **AGENTS.md** | 操作手册 - 工作流程、检查清单、协作规则 |
+| **SOUL.md** | 角色灵魂 - 语气、性格、边界 |
+| **IDENTITY.md** | 身份信息 - 名字、emoji、身份定位 |
+| **TOOLS.md** | 工具说明 - 本地工具、配置、笔记 |
+| **MEMORY.md** | 经验记忆 - 长期积累的知识、教训、案例 |
+| **HEARTBEAT.md** | 心跳清单 - 可选的定期检查任务 |
+
+**重要：不要创建非标准文件（如 WORK.md、SKILLS.md 等）**
