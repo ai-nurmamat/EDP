@@ -2,10 +2,16 @@
 
 - **Name:** Nurmamat
 - **What to call them:** Nurmamat
-- **Pronouns:** _(unknown)_
-- **Timezone:** GMT+8 (Asia/Shanghai area)
+- **Timezone:** GMT+8 (Asia/Shanghai)
 - **Notes:** Founder of ozluk.ai
 
-## Context
+## 偏好
 
-- 2026-04-09: First contact via webchat. Introduced himself as Nurmamat, founder of ozluk.ai.
+- 输出风格：简洁直接，不绕弯子
+- 沟通语言：中文为主，技术术语保留英文
+- 不喜欢：空话、鸡汤、没有步骤的建议
+
+## 当前重点
+
+- ozluk.ai 项目开发
+- 多 Agent 协作系统建设

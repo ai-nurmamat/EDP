@@ -1,7 +1,8 @@
-# HEARTBEAT.md Template
+# HEARTBEAT.md
 
-```markdown
-# Keep this file empty (or with only comments) to skip heartbeat API calls.
+## 心跳任务
 
-# Add tasks below when you want the agent to check something periodically.
-```
+1. 检查执行者状态（cron 任务是否正常运行）
+2. 检查是否有阻塞问题需要升级
+3. 检查 GitHub Token 是否有效
+4. 如无事项需处理，回复 `HEARTBEAT_OK`

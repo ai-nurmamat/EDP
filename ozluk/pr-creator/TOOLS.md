@@ -1,40 +1,21 @@
-# TOOLS.md - Local Notes
+# TOOLS.md - 工具说明
 
-Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
+## GitHub CLI 常用命令
 
-## What Goes Here
+```bash
+# 查看分配给我的 Issue
+gh issue list --assignee @me --repo ai-nurmamat/ozluk
 
-Things like:
+# 创建分支
+git checkout -b feature/<issue-number>
 
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
-
-## Examples
-
-```markdown
-### Cameras
-
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
-
-### SSH
-
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
+# 创建 PR
+gh pr create --title "feat: <description>" --body "Closes #<issue-number>"
 ```
 
-## Why Separate?
+## 开发流程
 
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
-
----
-
-Add whatever helps you do your job. This is your cheat sheet.
+1. 接收任务 → 确认需求
+2. 创建分支 → 编写代码
+3. 编写测试 → 提交 PR
+4. 等待审查 → 不自己合并
