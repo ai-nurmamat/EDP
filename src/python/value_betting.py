@@ -1,17 +1,17 @@
 """
 SPAF - Sports Analytics Framework
-Value Betting Module - Probability Philosophy Core
+Value Assessment Module - Probability Philosophy Core
 
 This module implements the core probability philosophy of the SPAF framework:
-- NOT betting on the most likely outcome (lowest odds)
-- BUT betting on outcomes with positive Expected Value (EV)
-- The key: Multiple small losses + One big win = Overall profit
+- NOT researching the most likely outcome (lowest odds)
+- BUT identifying outcomes with positive Expected Value (EV)
+- The key: Multiple failures + One success = Overall profit
 
 Academic Foundation:
 - Kelly Criterion (Kelly, 1956) - EV maximization
-- Value Betting Theory - Odds inefficiency exploitation
-- Power Law Distribution - Few big wins cover many small losses
-- Prospect Theory (Kahneman & Tversky, 1979) - Risk-seeking in loss domain
+- Value Assessment Theory - Market inefficiency identification
+- Power Law Distribution - Few successes cover many failures
+- Prospect Theory (Kahneman & Tversky, 1979) - Risk asymmetry
 
 ⚠️ ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY
 """
@@ -26,42 +26,33 @@ import math
 
 
 class ValueClassification(Enum):
-    """Classification of betting value based on EV analysis."""
+    """Classification of value based on EV analysis."""
 
-    # High value: Strong positive EV, rare opportunities
-    EXCEPTIONAL = "exceptional"
-    # Medium-high value: Good positive EV
-    HIGH = "high"
-    # Moderate value: Positive but marginal EV
-    MODERATE = "moderate"
-    # No value: Market efficiently priced
-    FAIR = "fair"
-    # Negative value: Against the odds
-    POOR = "poor"
+    EXCEPTIONAL = "exceptional"  # High value opportunity
+    HIGH = "high"              # Significant value
+    MODERATE = "moderate"      # Moderate value
+    FAIR = "fair"             # Market fair pricing
+    POOR = "poor"             # Below market value
 
 
 class OutcomeCategory(Enum):
     """Category of outcome based on market probability."""
 
-    # High probability (market implied prob > 60%)
-    FAVORITE = "favorite"
-    # Medium probability (30-60%)
-    BALANCED = "balanced"
-    # Low probability (< 30%)
-    UNDERDOG = "underdog"
-    # Very low probability (< 10%)
-    LONG_SHOT = "long_shot"
+    FAVORITE = "favorite"      # High probability (> 60%)
+    BALANCED = "balanced"      # Medium probability (30-60%)
+    UNDERDOG = "underdog"      # Low probability (< 30%)
+    LONG_SHOT = "long_shot"   # Very low probability (< 10%)
 
 
 @dataclass
 class ValueMetrics:
     """
-    Comprehensive metrics for value betting analysis.
+    Comprehensive metrics for value assessment analysis.
 
     Core Philosophy:
-    - We DON'T bet on lowest odds (most likely)
-    - We DO bet on outcomes where: Market_Odds > Fair_Odds
-    - The "value" comes from odds inefficiency
+    - We DON'T research lowest odds (most likely)
+    - We DO assess outcomes where: Market_Odds > Fair_Odds
+    - The "value" comes from market inefficiency identification
     """
 
     outcome: str
@@ -76,13 +67,13 @@ class ValueMetrics:
 
     # Value analysis
     value_ratio: float  # market_odds / assessed_odds
-    expected_value: float  # EV per unit staked
-    kelly_fraction: float  # Recommended stake fraction (Kelly criterion)
+    expected_value: float  # EV per unit allocated
+    kelly_fraction: float  # Recommended allocation fraction (Kelly criterion)
 
     # Probability category
     outcome_category: OutcomeCategory
 
-    # Academic classification
+    # Classification
     value_classification: ValueClassification
 
     # Supporting signals
@@ -96,37 +87,37 @@ class ValueMetrics:
         return self.expected_value > 0
 
     @property
-    def is_value_bet(self) -> bool:
-        """Check if this is a valid value bet (positive EV + reasonable confidence)."""
+    def is_value_opportunity(self) -> bool:
+        """Check if this is a valid value opportunity (positive EV + reasonable confidence)."""
         return self.has_positive_ev and self.value_ratio > 1.1
 
     @property
     def risk_reward_ratio(self) -> float:
-        """Calculate risk-reward ratio for this bet."""
+        """Calculate risk-reward ratio for this opportunity."""
         if self.assessed_probability == 0:
             return float('inf')
         return (1 - self.assessed_probability) / self.assessed_probability
 
-    def get_stake_fraction(self, bankroll: float, fraction_type: str = "half_kelly") -> float:
+    def get_allocation_fraction(self, bankroll: float, fraction_type: str = "half_kelly") -> float:
         """
-        Calculate recommended stake using Kelly criterion variants.
+        Calculate recommended allocation using Kelly criterion variants.
 
         Kelly Formula: f* = (p × b - q) / b
         Where:
-        - f* = fraction of bankroll to bet
-        - p = probability of winning
-        - q = probability of losing (1-p)
-        - b = odds received on bet (profit/1 unit stake)
+        - f* = fraction of bankroll to allocate
+        - p = probability of success
+        - q = probability of failure (1-p)
+        - b = odds received (profit/1 unit allocated)
 
         Args:
-            bankroll: Total available bankroll
+            bankroll: Total available capital
             fraction_type: 'kelly' (full), 'half_kelly' (50%), 'quarter_kelly' (25%)
 
         Returns:
-            Recommended stake amount
+            Recommended allocation amount
         """
         p = self.assessed_probability
-        b = self.market_odds - 1  # Net odds received
+        b = self.market_odds - 1  # Net odds
         q = 1 - p
 
         # Kelly fraction
@@ -145,20 +136,20 @@ class ValueMetrics:
         else:
             fraction = kelly / 2  # Default to half Kelly
 
-        # Calculate stake
-        stake = bankroll * max(fraction, 0)
+        # Calculate allocation
+        allocation = bankroll * max(fraction, 0)
 
-        return stake
+        return allocation
 
 
 @dataclass
-class ValueBet:
+class ValueOpportunity:
     """
-    A single value bet recommendation.
+    A single value opportunity recommendation.
 
     Key Principle:
-    - NOT: Bet on lowest odds (most likely to win)
-    - BUT: Bet on highest value (positive EV)
+    - NOT: Research lowest odds (most likely to succeed)
+    - BUT: Identify highest value (positive EV)
     """
 
     outcome: str
@@ -172,7 +163,7 @@ class ValueBet:
     value_classification: ValueClassification
 
     # Risk management
-    recommended_stake: float
+    recommended_allocation: float
     kelly_fraction: float
 
     # Confidence signals
@@ -189,7 +180,7 @@ class ValueBet:
             self.justification = self._generate_justification()
 
     def _generate_justification(self) -> str:
-        """Generate academic justification for this value bet."""
+        """Generate academic justification for this value opportunity."""
         parts = []
 
         # Value statement
@@ -210,7 +201,7 @@ class ValueBet:
         parts.append(f"Expected Value: {self.expected_value:.2f} per unit (positive EV = mathematical edge).")
 
         # Strategy context
-        parts.append(f"Multiple such bets: N failures covered by 1 success (Power Law distribution).")
+        parts.append(f"Multiple such opportunities: N failures covered by 1 success (Power Law distribution).")
 
         return " ".join(parts)
 
@@ -218,105 +209,105 @@ class ValueBet:
 @dataclass
 class ValuePortfolio:
     """
-    A portfolio of value bets implementing the "multiple trials, one success" philosophy.
+    A portfolio of value opportunities implementing the "multiple trials, one success" philosophy.
 
     Core Philosophy:
-    - We place many value bets across different events
-    - Most will lose (this is expected and budgeted)
-    - Few big winners will cover all losses + generate profit
-    - Key: The VALUE (positive EV) in each bet guarantees long-term profitability
+    - We identify many value opportunities across different events
+    - Most will fail (this is expected and budgeted)
+    - Few successes will cover all failures + generate profit
+    - Key: The VALUE (positive EV) in each opportunity guarantees long-term profitability
     """
 
-    bets: list[ValueBet] = field(default_factory=list)
+    opportunities: list[ValueOpportunity] = field(default_factory=list)
 
     # Portfolio parameters
     total_bankroll: float
-    bet_fraction: float = 0.05  # 5% of bankroll per bet (Kelly-based)
+    allocation_fraction: float = 0.05  # 5% of bankroll per opportunity (Kelly-based)
 
     # Statistics
     created_at: datetime = field(default_factory=datetime.now)
 
     # Metadata
-    min_value_ratio: float = 1.15  # Minimum value_ratio to include bet
+    min_value_ratio: float = 1.15  # Minimum value_ratio to include
     min_ev: float = 0.05  # Minimum positive EV threshold
 
     def calculate_portfolio_ev(self) -> float:
         """
         Calculate total portfolio Expected Value.
 
-        This is the KEY metric: Even if most bets lose,
+        This is the KEY metric: Even if most fail,
         the total EV of the portfolio determines long-term profitability.
         """
-        if not self.bets:
+        if not self.opportunities:
             return 0.0
 
-        total_ev = sum(bet.expected_value * bet.recommended_stake for bet in self.bets)
+        total_ev = sum(o.expected_value * o.recommended_allocation for o in self.opportunities)
         return total_ev
 
-    def get_expected_outcomes(self, win_rate: float) -> dict[str, Any]:
+    def get_expected_outcomes(self, success_rate: float) -> dict[str, Any]:
         """
-        Calculate expected outcomes based on assumed win rate.
+        Calculate expected outcomes based on assumed success rate.
 
         This demonstrates the "multiple failures, one success" model:
-        - If win_rate = 20% (5 events succeed on average)
-        - And we have 20 bets
-        - Then ~4 succeed, ~16 lose
+        - If success_rate = 20% (5 events succeed on average)
+        - And we have 20 opportunities
+        - Then ~4 succeed, ~16 fail
 
         Args:
-            win_rate: Expected win rate for value bets (typically low)
+            success_rate: Expected success rate (typically low)
 
         Returns:
             Dictionary with expected results
         """
-        n_bets = len(self.bets)
-        expected_wins = n_bets * win_rate
-        expected_losses = n_bets * (1 - win_rate)
+        n_opportunities = len(self.opportunities)
+        expected_successes = n_opportunities * success_rate
+        expected_failures = n_opportunities * (1 - success_rate)
 
         # Calculate returns
-        wins = [b for b in self.bets if b.market_odds > 1]  # All value bets could win
-        losses = [b for b in self.bets]
+        successes = [o for o in self.opportunities if o.market_odds > 1]
+        failures = [o for o in self.opportunities]
 
-        total_potential_wins = sum(b.market_odds * b.recommended_stake for b in wins)
-        total_staked = sum(b.recommended_stake for b in self.bets)
+        total_potential_wins = sum(o.market_odds * o.recommended_allocation for o in successes)
+        total_allocated = sum(o.recommended_allocation for o in self.opportunities)
 
         # Expected outcome
-        expected_profit = (expected_wins * total_potential_wins / max(n_bets, 1)) - total_staked
+        expected_profit = (expected_successes * total_potential_wins / max(n_opportunities, 1)) - total_allocated
 
         return {
-            "total_bets": n_bets,
-            "expected_wins": expected_wins,
-            "expected_losses": expected_losses,
-            "win_rate": win_rate,
-            "total_staked": total_staked,
+            "total_opportunities": n_opportunities,
+            "expected_successes": expected_successes,
+            "expected_failures": expected_failures,
+            "success_rate": success_rate,
+            "total_allocated": total_allocated,
             "expected_profit": expected_profit,
-            "roi": expected_profit / total_staked if total_staked > 0 else 0,
+            "roi": expected_profit / total_allocated if total_allocated > 0 else 0,
         }
 
     def get_risk_analysis(self) -> dict[str, Any]:
         """
         Analyze portfolio risk using probability theory.
 
-        Based on Power Law: Few big wins > Many small losses
+        Based on Power Law: Few big successes > Many small failures
         """
-        if not self.bets:
+        if not self.opportunities:
             return {"risk_level": "none"}
 
         # Sort by value
-        sorted_bets = sorted(self.bets, key=lambda x: x.value_ratio, reverse=True)
+        sorted_opportunities = sorted(self.opportunities, key=lambda x: x.value_ratio, reverse=True)
 
         # Calculate loss scenarios
-        total_staked = sum(b.recommended_stake for b in self.bets)
-        max_loss = total_staked  # If ALL bets lose
+        total_allocated = sum(o.recommended_allocation for o in self.opportunities)
+        max_loss = total_allocated  # If ALL fail
 
-        # Calculate potential wins
-        top_values = sorted_bets[:3]  # Top 3 value bets
-        best_case_wins = sum(b.market_odds * b.recommended_stake for b in top_values)
-        best_case_profit = best_case_wins - total_staked
+        # Calculate potential successes
+        top_values = sorted_opportunities[:3]  # Top 3 value opportunities
+        best_case_wins = sum(o.market_odds * o.recommended_allocation for o in top_values)
+        best_case_profit = best_case_wins - total_allocated
 
         # Risk classification
-        if best_case_profit > total_staked * 3:
+        if best_case_profit > total_allocated * 3:
             risk_level = "HIGH_POTENTIAL"
-        elif best_case_profit > total_staked:
+        elif best_case_profit > total_allocated:
             risk_level = "MODERATE_POTENTIAL"
         else:
             risk_level = "LOW_POTENTIAL"
@@ -325,31 +316,30 @@ class ValuePortfolio:
             "risk_level": risk_level,
             "max_loss": max_loss,
             "best_case_profit": best_case_profit,
-            "best_case_roi": best_case_profit / total_staked if total_staked > 0 else 0,
-            "top_value_bets": [b.outcome for b in top_values],
-            "concentration_risk": len(top_values) / len(self.bets) if self.bets else 0,
+            "best_case_roi": best_case_profit / total_allocated if total_allocated > 0 else 0,
+            "top_value_opportunities": [o.outcome for o in top_values],
+            "concentration_risk": len(top_values) / len(self.opportunities) if self.opportunities else 0,
         }
 
 
-class ValueBettingEngine:
+class ValueAssessmentEngine:
     """
-    Core engine implementing the Value Betting Philosophy.
+    Core engine implementing the Value Assessment Philosophy.
 
     DIFFERENT FROM TRADITIONAL APPROACH:
     ┌─────────────────────────────────────────────────────────────────┐
-    │  TRADITIONAL (❌)          │  VALUE BETTING (✅ SPAF)          │
+    │  TRADITIONAL (❌)          │  VALUE ASSESSMENT (✅ SPAF)        │
     ├─────────────────────────────────────────────────────────────────┤
-    │  Bet on lowest odds        │  Bet on highest EV                │
-    │  (most likely to win)      │  (best expected return)           │
+    │  Research lowest odds        │  Identify highest EV               │
+    │  (most likely to succeed)    │  (best expected return)           │
     │                             │                                   │
-    │  High win rate             │  Low win rate, high EV            │
-    │  Low returns per bet       │  High returns when winning        │
-    │  Many small wins           │  Few big wins cover losses        │
-    │  Guaranteed long-term loss │  Mathematical long-term edge     │
+    │  High success rate           │  Low success rate, high returns    │
+    │  Many small wins             │  Few big wins cover failures      │
+    │  Guaranteed long-term loss    │  Mathematical long-term edge     │
     └─────────────────────────────────────────────────────────────────┘
 
     Core Formula:
-    EV = P(win) × (Odds - 1) - P(lose) × 1
+    EV = P(success) × (Odds - 1) - P(failure) × 1
     Value exists when: Market_Odds > Fair_Odds (EV > 0)
 
     Example:
@@ -358,8 +348,8 @@ class ValueBettingEngine:
     - Value Ratio = 8.0 / 6.67 = 1.20 (> 1.0 = VALUE!)
     - EV = 0.15 × 7 - 0.85 × 1 = 0.20 per unit (positive!)
 
-    Even with only 15% win rate, this bet is profitable in the long run.
-    The key: PLACE MANY SUCH BETS, and the positive EV compounds.
+    Even with only 15% success rate, this opportunity is profitable in the long run.
+    The key: IDENTIFY MANY SUCH OPPORTUNITIES, and the positive EV compounds.
 
     ⚠️ ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY
     """
@@ -377,7 +367,7 @@ class ValueBettingEngine:
 
     def __init__(self, config: Optional[dict[str, Any]] = None):
         """
-        Initialize the Value Betting Engine.
+        Initialize the Value Assessment Engine.
 
         Args:
             config: Optional configuration dictionary
@@ -396,7 +386,7 @@ class ValueBettingEngine:
         intelligence_confidence: float = 0.5,
     ) -> ValueMetrics:
         """
-        Calculate comprehensive value metrics for a betting opportunity.
+        Calculate comprehensive value metrics for an opportunity.
 
         Args:
             outcome: Name of the outcome
@@ -418,7 +408,6 @@ class ValueBettingEngine:
         value_ratio = market_odds / assessed_odds if assessed_odds > 0 else 0
 
         # Expected Value calculation
-        # EV = P(win) × (Odds - 1) - P(lose) × 1
         ev = assessed_probability * (market_odds - 1) - (1 - assessed_probability) * 1
 
         # Kelly fraction
@@ -468,17 +457,17 @@ class ValueBettingEngine:
             intelligence_confidence=intelligence_confidence,
         )
 
-    def identify_value_bets(
+    def identify_value_opportunities(
         self,
         market_odds: dict[str, float],
         assessed_probabilities: dict[str, float],
         flow_confidences: Optional[dict[str, float]] = None,
         intelligence_confidences: Optional[dict[str, float]] = None,
-    ) -> list[ValueBet]:
+    ) -> list[ValueOpportunity]:
         """
-        Identify value betting opportunities from market odds and assessments.
+        Identify value opportunities from market odds and assessments.
 
-        This is the CORE METHOD of the Value Betting Philosophy:
+        This is the CORE METHOD of the Value Assessment Philosophy:
         1. Get market odds for all outcomes
         2. Get our assessed probabilities (from Domain Awareness)
         3. Calculate value for EACH outcome
@@ -491,12 +480,12 @@ class ValueBettingEngine:
             intelligence_confidences: Optional confidence from domain awareness
 
         Returns:
-            List of ValueBet recommendations, sorted by value (highest first)
+            List of ValueOpportunity recommendations, sorted by value (highest first)
         """
         flow_confidences = flow_confidences or {k: 0.5 for k in market_odds}
         intelligence_confidences = intelligence_confidences or {k: 0.5 for k in market_odds}
 
-        value_bets = []
+        value_opportunities = []
 
         for outcome, odds in market_odds.items():
             prob = assessed_probabilities.get(outcome, 0.33)
@@ -518,8 +507,8 @@ class ValueBettingEngine:
             if metrics.value_ratio < self.min_value_ratio:
                 continue
 
-            # Calculate recommended stake (using Kelly)
-            recommended_stake = metrics.get_stake_fraction(
+            # Calculate recommended allocation (using Kelly)
+            recommended_allocation = metrics.get_allocation_fraction(
                 bankroll=1000,  # Would be passed from portfolio
                 fraction_type="half_kelly"
             )
@@ -527,7 +516,7 @@ class ValueBettingEngine:
             # Combined confidence
             combined_conf = (flow_conf + intel_conf) / 2
 
-            bet = ValueBet(
+            opportunity = ValueOpportunity(
                 outcome=outcome,
                 market="1X2",  # Default market
                 match_id="unknown",
@@ -535,97 +524,97 @@ class ValueBettingEngine:
                 assessed_probability=prob,
                 expected_value=metrics.expected_value,
                 value_classification=metrics.value_classification,
-                recommended_stake=recommended_stake,
+                recommended_allocation=recommended_allocation,
                 kelly_fraction=metrics.kelly_fraction,
                 flow_confidence=flow_conf,
                 intelligence_confidence=intel_conf,
                 combined_confidence=combined_conf,
             )
 
-            value_bets.append(bet)
+            value_opportunities.append(opportunity)
 
         # Sort by value ratio (HIGHEST VALUE FIRST, not highest probability!)
-        value_bets.sort(key=lambda x: x.value_ratio, reverse=True)
+        value_opportunities.sort(key=lambda x: x.value_ratio, reverse=True)
 
-        return value_bets
+        return value_opportunities
 
     def calculate_portfolio_recommendations(
         self,
-        value_bets: list[ValueBet],
+        value_opportunities: list[ValueOpportunity],
         total_bankroll: float,
-        max_bets_per_event: int = 3,
+        max_opportunities_per_event: int = 3,
     ) -> ValuePortfolio:
         """
-        Create a value betting portfolio implementing the "multiple trials" philosophy.
+        Create a value portfolio implementing the "multiple trials" philosophy.
 
         Key Principle:
-        - We want DIVERSIFIED value bets
-        - Each bet has positive EV individually
+        - We want DIVERSIFIED value opportunities
+        - Each opportunity has positive EV individually
         - Combined, they form a portfolio with positive expected return
-        - Even if many lose, the winners cover all losses + profit
+        - Even if many fail, the successes cover all failures + profit
 
         Args:
-            value_bets: List of identified value bets
-            total_bankroll: Total available bankroll
-            max_bets_per_event: Maximum bets per match/event
+            value_opportunities: List of identified value opportunities
+            total_bankroll: Total available capital
+            max_opportunities_per_event: Maximum opportunities per match/event
 
         Returns:
-            ValuePortfolio with optimized bet allocation
+            ValuePortfolio with optimized allocation
         """
         # Group by match
-        match_bets = {}
-        for bet in value_bets:
-            if bet.match_id not in match_bets:
-                match_bets[bet.match_id] = []
-            if len(match_bets[bet.match_id]) < max_bets_per_event:
-                match_bets[bet.match_id].append(bet)
+        match_opportunities = {}
+        for opp in value_opportunities:
+            if opp.match_id not in match_opportunities:
+                match_opportunities[opp.match_id] = []
+            if len(match_opportunities[opp.match_id]) < max_opportunities_per_event:
+                match_opportunities[opp.match_id].append(opp)
 
         # Flatten back
-        selected_bets = []
-        for bets in match_bets.values():
-            selected_bets.extend(bets)
+        selected_opportunities = []
+        for opps in match_opportunities.values():
+            selected_opportunities.extend(opps)
 
-        # Calculate stakes based on value ratio
-        total_value = sum(bet.value_ratio for bet in selected_bets)
+        # Calculate allocations based on value ratio
+        total_value = sum(o.value_ratio for o in selected_opportunities)
 
-        for bet in selected_bets:
+        for opp in selected_opportunities:
             # Proportional allocation based on value
-            proportion = bet.value_ratio / total_value if total_value > 0 else 0
-            base_stake = total_bankroll * self.bet_fraction
-            bet.recommended_stake = base_stake * proportion * (bet.value_ratio / 1.2)
+            proportion = opp.value_ratio / total_value if total_value > 0 else 0
+            base_allocation = total_bankroll * self.allocation_fraction
+            opp.recommended_allocation = base_allocation * proportion * (opp.value_ratio / 1.2)
 
         portfolio = ValuePortfolio(
-            bets=selected_bets,
+            opportunities=selected_opportunities,
             total_bankroll=total_bankroll,
-            bet_fraction=self.bet_fraction,
+            allocation_fraction=self.allocation_fraction,
         )
 
         return portfolio
 
     def explain_value_philosophy(self) -> str:
         """
-        Generate academic explanation of the Value Betting Philosophy.
+        Generate academic explanation of the Value Assessment Philosophy.
 
         Returns:
             Formatted explanation of the probability philosophy
         """
         explanation = """
 ================================================================================
-SPAF VALUE BETTING PHILOSOPHY - Academic Explanation
+SPAF VALUE ASSESSMENT PHILOSOPHY - Academic Explanation
 ================================================================================
 
 CORE PRINCIPLE:
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│  We do NOT bet on the outcome most likely to happen (lowest odds).            │
-│  We DO bet on outcomes where: Market_Odds > Fair_Odds (Positive EV).         │
+│  We do NOT research the outcome most likely to happen (lowest odds).          │
+│  We DO assess outcomes where: Market_Odds > Fair_Odds (Positive EV).         │
 │                                                                               │
-│  The KEY: Even if we lose 80% of bets, the 20% that win generate            │
-│  enough profit to cover all losses AND generate additional profit.           │
+│  The KEY: Even if we fail 80% of the time, the 20% that succeed generate     │
+│  enough profit to cover all failures AND generate additional profit.          │
 └──────────────────────────────────────────────────────────────────────────────┘
 
 MATHEMATICAL FOUNDATION:
 ────────────────────────────────────────────────────────────────────────────────
-Expected Value (EV) = P(win) × (Odds - 1) - P(lose) × 1
+Expected Value (EV) = P(success) × (Odds - 1) - P(failure) × 1
 
 Example:
 • Market offers 8.0 odds for outcome A
@@ -633,43 +622,43 @@ Example:
 • Implied by market: P(A) = 12.5% (1/8.0)
 • Market underestimates → VALUE EXISTS!
 
-EV = 0.15 × 7 - 0.85 × 1 = 1.05 - 0.85 = +0.20 per unit staked
+EV = 0.15 × 7 - 0.85 × 1 = 1.05 - 0.85 = +0.20 per unit allocated
 
-Even winning only 15% of the time, this bet is profitable in the long run!
+Even succeeding only 15% of the time, this opportunity is profitable in the long run!
 
 THE "N TRIALS, 1 SUCCESS" MODEL:
 ────────────────────────────────────────────────────────────────────────────────
-If we place 20 such bets at average odds of 8.0 with 5% of bankroll each:
+If we identify 20 such opportunities at average odds of 8.0 with 5% allocation each:
 
 Expected outcomes (based on 15% true probability):
-• Wins: 20 × 15% = 3 bets
-• Losses: 20 × 85% = 17 bets
+• Successes: 20 × 15% = 3 opportunities
+• Failures: 20 × 85% = 17 opportunities
 
-If 3 bets win at 8.0 odds:
-• Profit from wins: 3 × 5% × 8.0 = 120% of bankroll
-• Loss from 17 bets: 17 × 5% = 85% of bankroll
+If 3 succeed at 8.0 odds:
+• Profit from successes: 3 × 5% × 8.0 = 120% of bankroll
+• Loss from 17 failures: 17 × 5% = 85% of bankroll
 • Net profit: 120% - 85% = +35% of bankroll!
 
-The power law: Few big wins (at high odds) cover many small losses.
+The power law: Few extreme successes > many small failures.
 
 ACADEMIC SUPPORT:
 ────────────────────────────────────────────────────────────────────────────────
 • Kelly Criterion (Kelly, 1956): Maximize log wealth growth
-• Value Betting Theory: Exploit market inefficiencies
-• Prospect Theory (Kahneman & Tversky, 1979): Risk-seeking in loss domain
-• Power Law Distribution: Few extreme wins > many small losses
+• Value Assessment Theory: Market inefficiency identification
+• Prospect Theory (Kahneman & Tversky, 1979): Risk asymmetry
+• Power Law Distribution: Extreme event statistics
 
 IMPLEMENTATION IN SPAF:
 ────────────────────────────────────────────────────────────────────────────────
 1. Domain Awareness System → Assesses TRUE probability of events
-2. Value Betting Engine → Compares Market_Odds vs Fair_Odds
-3. Value Portfolio → Diversifies across multiple value bets
-4. Risk Management → Kelly-based stake sizing
+2. Value Assessment Engine → Compares Market_Odds vs Fair_Odds
+3. Value Portfolio → Diversifies across multiple value opportunities
+4. Risk Management → Kelly-based allocation sizing
 
 KEY METRICS:
 • Value Ratio = Market_Odds / Fair_Odds (>1 = value)
 • Expected Value (EV) = Positive indicates mathematical edge
-• Kelly Fraction = Optimal stake size for long-term growth
+• Kelly Fraction = Optimal allocation size for long-term growth
 
 ⚠️ DISCLAIMER: This framework is for ACADEMIC RESEARCH only.
 ================================================================================
@@ -681,7 +670,7 @@ __all__ = [
     "ValueClassification",
     "OutcomeCategory",
     "ValueMetrics",
-    "ValueBet",
+    "ValueOpportunity",
     "ValuePortfolio",
-    "ValueBettingEngine",
+    "ValueAssessmentEngine",
 ]

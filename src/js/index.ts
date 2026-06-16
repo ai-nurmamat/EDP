@@ -8,7 +8,7 @@
  * - Kelly criterion variant for capital allocation
  *
  * @module spaf-framework
- * @version 4.0.0
+ * @version 1.0.0
  * @license MIT
  *
  * DISCLAIMER: For ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY.

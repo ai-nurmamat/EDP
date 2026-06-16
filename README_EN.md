@@ -4,7 +4,7 @@
 >
 > **全域感知型体育竞彩分析框架**
 
-![Version](https://img.shields.io/badge/Version-4.1-blue)
+![Version](https://img.shields.io/badge/Version-1.0-blue)
 ![Status](https://img.shields.io/badge/Status-Production--Ready-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
@@ -18,7 +18,7 @@
 >
 > - Sports analytics involves **real financial risk**. Historical probability patterns do **NOT guarantee** future results.
 > - All sports analytics activities have **negative expected value (EV)** by design (bookmaker margin). No system can mathematically overcome this fact.
-> - **NEVER wager money you cannot afford to lose.** Sports betting should be treated as entertainment, not investment.
+> - **NEVER invest money you cannot afford to lose.** Sports analytics should be treated as entertainment, not investment.
 > - The author makes **NO WARRANTIES** regarding the accuracy, completeness, or profitability of any analysis produced by this framework.
 > - Users bear full responsibility for their own decisions and must comply with **local laws and regulations**.
 
@@ -27,13 +27,13 @@
 ## Table of Contents
 
 - [Architecture Overview](#architecture-overview)
-- [Probability Philosophy](#probability-philosophy-we-dont-bet-on-most-likely-we-bet-on-value)
+- [Probability Philosophy](#probability-philosophy-we-dont-research-most-likely-we-identify-value)
 - [Design Philosophy](#design-philosophy-ooda-loop--loop-engineering--dag-execution)
 - [Data Acquisition Layer](#data-acquisition-layer)
 - [Probability Analysis Engine](#probability-analysis-engine)
 - [Probability Flow Amplification Effect](#probability-flow-amplification-effect)
 - [Domain Awareness System](#domain-awareness-system)
-- [Value Betting Engine](#value-betting-engine)
+- [Value Assessment Engine](#value-assessment-engine)
 - [Scheme Design Engine](#scheme-design-engine)
 - [Rule Compliance Layer](#rule-compliance-layer)
 - [Output Generation](#output-generation)
@@ -88,27 +88,27 @@ The system employs a **Directed Acyclic Graph (DAG) pipeline architecture**, whe
 
 ---
 
-## Probability Philosophy: We Don't Bet on Most Likely, We Bet on VALUE
+## Probability Philosophy: We Don't Research Most Likely, We Identify VALUE
 
 ### Core Philosophy
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│  We do NOT bet: On the most likely outcome (lowest odds)                       │
-│  We DO bet: Where Market_Odds > Fair_Odds (Positive Expected Value)           │
+│  We do NOT research: On the most likely outcome (lowest odds)                │
+│  We DO assess: Where Market_Odds > Fair_Odds (Positive Expected Value)     │
 │                                                                               │
-│  Key Insight: Even if 80% of bets lose, the 20% that win can cover ALL        │
-│               losses AND generate profit                                      │
+│  Key Insight: Even if 80% of opportunities fail, the 20% that succeed can │
+│               cover ALL losses AND generate profit                           │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Contrast with Traditional Approach
 
-| Traditional (❌) | Value Betting (✅ SPAF) |
-|-----------------|------------------------|
-| Bet on lowest odds | Bet on highest EV |
-| High win rate | Low win rate, high returns |
-| Many small wins | Few big wins cover many small losses |
+| Traditional (❌) | Value Assessment (✅ SPAF) |
+|-----------------|---------------------------|
+| Research lowest odds | Identify highest EV |
+| High success rate | Low success rate, high returns |
+| Many small wins | Few big wins cover many small failures |
 | Guaranteed long-term loss | Mathematical long-term edge |
 
 ### Mathematical Foundation
@@ -128,22 +128,21 @@ EV = P(success) × (Odds - 1) - P(fail) × 1
 - Market underestimates → **VALUE EXISTS!**
 
 ```
-EV = 0.15 × 7 - 0.85 × 1 = 1.05 - 0.85 = +0.20 per unit staked
-```
+EV = 0.15 × 7 - 0.85 × 1 = 1.05 - 0.85 = +0.20 per unit allocated
 
-Even with only 15% win rate, this bet is profitable in the long run!
+Even with only 15% success rate, this opportunity is profitable in the long run!
 
 ### The "N Trials, 1 Success" Model
 
-If we place 20 bets at 5% of bankroll each, average odds 8.0, true probability 15%:
+If we identify 20 opportunities at 5% of bankroll each, average odds 8.0, true probability 15%:
 
 **Expected Outcomes**:
-- Wins: 20 × 15% = 3 bets
-- Losses: 20 × 85% = 17 bets
+- Successes: 20 × 15% = 3 opportunities
+- Failures: 20 × 85% = 17 opportunities
 
-**If 3 bets win**:
-- Profit from wins: 3 × 5% × 8.0 = 120% of bankroll
-- Loss from 17 bets: 17 × 5% = 85% of bankroll
+**If 3 succeed**:
+- Profit from successes: 3 × 5% × 8.0 = 120% of bankroll
+- Loss from 17 failures: 17 × 5% = 85% of bankroll
 - **Net Profit: 120% - 85% = +35% of bankroll!**
 
 **Power Law Distribution**: Few big wins (at high odds) cover many small losses.
@@ -172,7 +171,7 @@ Domain Awareness evaluates **"real-world possibility of low-probability events"*
 | Theory | Literature | Application |
 |--------|------------|-------------|
 | Kelly Criterion | Kelly (1956) | Maximize log wealth growth |
-| Value Betting Theory | Market Efficiency Research | Exploit market inefficiencies |
+| Value Assessment Theory | Market Efficiency Research | Identify market inefficiencies |
 | Prospect Theory | Kahneman & Tversky (1979) | Risk-seeking in loss domain |
 | Power Law Distribution | Extreme Event Statistics | Big wins cover small losses |
 
@@ -367,21 +366,21 @@ Confidence = Flow_Strength × Intelligence_Support × Market_Consensus
 
 ---
 
-## Value Betting Engine
+## Value Assessment Engine
 
 ### Core Philosophy
 
-The Value Betting Engine implements SPAF's **Probability Philosophy**:
+The Value Assessment Engine implements SPAF's **Probability Philosophy**:
 
 ```
-NOT: Bet on "most likely to happen"
-BUT: Bet on "underestimated by market"
+NOT: Research "most likely to happen"
+BUT: Assess "underestimated by market"
 ```
 
 **Key Insight**:
 - Low probability events (high odds) ≠ will not happen
-- As long as odds are high enough, even low win rate can have **positive Expected Value**
-- Few big wins can cover many small losses (Power Law Distribution)
+- As long as odds are high enough, even low success rate can have **positive Expected Value**
+- Few big successes can cover many small failures (Power Law Distribution)
 
 ### Expected Value Calculation
 
@@ -407,41 +406,41 @@ Example:
 
 | Classification | Value Ratio | Strategy |
 |---------------|-------------|----------|
-| **Exceptional** | ≥ 1.30 | Focus, increase stake |
-| **High** | ≥ 1.20 | Priority selection, Kelly betting |
-| **Moderate** | ≥ 1.10 | Optional, cautious betting |
+| **Exceptional** | ≥ 1.30 | Focus, increase allocation |
+| **High** | ≥ 1.20 | Priority selection, Kelly allocation |
+| **Moderate** | ≥ 1.10 | Optional, cautious allocation |
 | **Fair** | ≥ 1.00 | No edge, skip |
 | **Poor** | < 1.00 | Negative EV, strictly exclude |
 
 ### "N Trials, 1 Success" Portfolio
 
 ```python
-# 20 bets, 5% of bankroll each
+# 20 opportunities, 5% of bankroll each
 # Average odds 8.0, true probability 15%
 
 Expected Results:
-- Wins: 20 × 15% = 3 bets
-- Losses: 20 × 85% = 17 bets
+- Successes: 20 × 15% = 3 opportunities
+- Failures: 20 × 85% = 17 opportunities
 
 Profit Calculation:
-- 3 wins profit: 3 × 5% × 8.0 = 120% of bankroll
-- 17 losses: 17 × 5% = 85% of bankroll
+- 3 successes profit: 3 × 5% × 8.0 = 120% of bankroll
+- 17 failures: 17 × 5% = 85% of bankroll
 - Net Profit: 120% - 85% = +35% of bankroll!
 ```
 
 ### Synergy with Domain Awareness System
 
 ```
-Domain Awareness                    Value Betting Engine
+Domain Awareness                    Value Assessment Engine
       │                                     │
       │  Evaluate "real possibility"        │  Determine "if value exists"
       │  Identify underestimated events     │  Calculate Expected Value
       │                                     │
-      └──────────────┬─────────────────────┘
+      └──────────────┬──────────────────────┘
                      │
                      ▼
              Positive EV + High Confidence
-                  = Value Bet Signal
+                  = Value Opportunity Signal
 ```
 
 ---
@@ -567,14 +566,14 @@ from spaf import (
     ProbabilityEngine,
     FlowAmplificationEngine,
     DomainAwarenessSystem,
-    ValueBettingEngine,
+    ValueAssessmentEngine,
 )
 
 # Initialize engines
 engine = ProbabilityEngine()
 amplifier = FlowAmplificationEngine()
 awareness = DomainAwarenessSystem()
-value_engine = ValueBettingEngine()
+value_engine = ValueAssessmentEngine()
 
 # Calculate true probability
 result = engine.calculate_true_probability({'home': 1.5, 'draw': 4.0, 'away': 6.0})
@@ -588,8 +587,8 @@ amp_report = amplifier.calculate_amplification(flow_report, outcome_probs)
 # Domain awareness analysis
 domain_report = awareness.analyze_match(match_intel, flow_confidences)
 
-# Value betting analysis - Core: Identify positive EV opportunities
-value_bets = value_engine.identify_value_bets(
+# Value assessment analysis - Core: Identify positive EV opportunities
+value_opportunities = value_engine.identify_value_opportunities(
     market_odds={'home': 1.8, 'draw': 3.5, 'away': 5.0},
     assessed_probabilities={'home': 0.50, 'draw': 0.30, 'away': 0.25},
     flow_confidences={'home': 0.7, 'draw': 0.5, 'away': 0.6},
@@ -598,7 +597,7 @@ value_bets = value_engine.identify_value_bets(
 
 # Create value portfolio
 portfolio = value_engine.calculate_portfolio_recommendations(
-    value_bets=value_bets,
+    value_opportunities=value_opportunities,
     total_bankroll=10000,
 )
 ```
@@ -707,7 +706,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) file for 
 
 **This framework is for ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY.**
 
-- This framework does not constitute any investment advice or gambling advice.
+- This framework does not constitute any investment advice or prediction advice.
 - Any decisions made using this framework are the user's sole responsibility.
 - The author is not responsible for any losses incurred through use of this framework.
 - Please comply with laws and regulations in your jurisdiction.

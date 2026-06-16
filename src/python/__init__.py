@@ -60,12 +60,12 @@ from .value_betting import (
     ValueClassification,
     OutcomeCategory,
     ValueMetrics,
-    ValueBet,
+    ValueOpportunity,
     ValuePortfolio,
-    ValueBettingEngine,
+    ValueAssessmentEngine,
 )
 
-__version__ = "4.1.0"
+__version__ = "1.0.0"
 __author__ = "SPAF Team"
 __license__ = "MIT"
 
@@ -97,11 +97,11 @@ __all__ = [
     "MatchIntelligence",
     "DomainAwarenessReport",
     "DomainAwarenessSystem",
-    # Value Betting
+    # Value Assessment
     "ValueClassification",
     "OutcomeCategory",
     "ValueMetrics",
-    "ValueBet",
+    "ValueOpportunity",
     "ValuePortfolio",
-    "ValueBettingEngine",
+    "ValueAssessmentEngine",
 ]
