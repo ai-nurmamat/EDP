@@ -1,10 +1,10 @@
-# 🎯 SPAF - Sports Probability Analysis Framework
+# 🎯 SPAF - Sports Analytics Framework
 
-> **Domain-Aware, Situational-Awareness-Driven, Probability-Flow-Based Sports Prediction Optimization System**
+> **Domain-Aware, Situational-Awareness-Driven, Probability-Flow-Based Sports Analytics Optimization System**
 >
-> **基于态势感知、概率流向与贝叶斯更新的竞彩方案优化系统**
+> **全域感知型体育竞彩分析框架**
 
-![Version](https://img.shields.io/badge/Version-4.0-blue)
+![Version](https://img.shields.io/badge/Version-4.1-blue)
 ![Status](https://img.shields.io/badge/Status-Production--Ready-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
@@ -16,12 +16,11 @@
 
 > **This framework is for ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY.**
 >
-> - Sports prediction involves **real financial risk**. Historical probability patterns do **NOT guarantee** future results.
-> - All sports prediction activities have **negative expected value (EV)** by design (bookmaker margin). No system can mathematically overcome this fact.
-> - **NEVER wager money you cannot afford to lose.** Sports prediction should be treated as entertainment, not investment.
+> - Sports analytics involves **real financial risk**. Historical probability patterns do **NOT guarantee** future results.
+> - All sports analytics activities have **negative expected value (EV)** by design (bookmaker margin). No system can mathematically overcome this fact.
+> - **NEVER wager money you cannot afford to lose.** Sports betting should be treated as entertainment, not investment.
 > - The author makes **NO WARRANTIES** regarding the accuracy, completeness, or profitability of any analysis produced by this framework.
 > - Users bear full responsibility for their own decisions and must comply with **local laws and regulations**.
-> - **Gambling Help Hotline**: If you or someone you know has a gambling problem, seek professional help immediately.
 
 ---
 
@@ -39,6 +38,8 @@
 - [Academic Foundation](#academic-foundation)
 - [Quick Start](#quick-start)
 - [API Documentation](#api-documentation)
+- [MCP Integration](#mcp-integration)
+- [Skill Integration](#skill-integration)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -87,7 +88,7 @@ The system employs a **Directed Acyclic Graph (DAG) pipeline architecture**, whe
 
 ## Design Philosophy: OODA Loop × Loop Engineering × DAG Execution
 
-### OODA Loop Mapping in Sports Analysis
+### OODA Loop Mapping in Sports Analytics
 
 The OODA Loop was developed by U.S. Air Force Colonel John Boyd (Boyd, 1987, "A Discourse on Winning and Losing"), originally for military decision-making. Its core is a **rapid perceive-orient-decide-act** closed loop.
 
@@ -107,15 +108,15 @@ The OODA Loop was developed by U.S. Air Force Colonel John Boyd (Boyd, 1987, "A 
 │                       market consensus)                  │
 │                                                          │
 │  Decide                                                   │
-│  ├─ Three Principles validation (each leg must pass)     │
-│  ├─ Scheme construction (stratification + parlay +       │
-│  │                       budget allocation)              │
-│  └─ Mixed parlay compliance check                        │
+│  ├─ Three Principles validation (each leg must pass)      │
+│  ├─ Scheme construction (stratification + parlay +      │
+│  │                       budget allocation)             │
+│  └─ Mixed parlay compliance check                       │
 │                                                          │
 │  Act                                                      │
 │  ├─ Generate narrative                                   │
 │  ├─ Quality checklist verification                       │
-│  └─ Collect feedback → Enter next OODA cycle            │
+│  └─ Collect feedback → Enter next OODA cycle           │
 └──────────────────────────────────────────────────────────┘
 ```
 
@@ -391,21 +392,28 @@ npm install spaf-framework
 ### Python Example
 
 ```python
-from spaf import ProbabilityEngine, FlowAnalyzer, SchemeDesigner
+from spaf import (
+    ProbabilityEngine,
+    FlowAmplificationEngine,
+    DomainAwarenessSystem,
+)
 
 # Initialize engines
 engine = ProbabilityEngine()
-analyzer = FlowAnalyzer()
-designer = SchemeDesigner()
+amplifier = FlowAmplificationEngine()
+awareness = DomainAwarenessSystem()
 
 # Calculate true probability
-true_probs = engine.calculate_true_probability(odds={'home': 1.5, 'draw': 4.0, 'away': 6.0})
+result = engine.calculate_true_probability({'home': 1.5, 'draw': 4.0, 'away': 6.0})
 
 # Analyze probability flow
-flow_report = analyzer.analyze_flow(initial_probs, latest_probs)
+flow_report = engine.analyze_flow(initial_snapshot, latest_snapshot)
 
-# Generate schemes
-schemes = designer.generate_schemes(flow_report, budget=100)
+# Calculate amplification effect
+amp_report = amplifier.calculate_amplification(flow_report, outcome_probs)
+
+# Domain awareness analysis
+domain_report = awareness.analyze_match(match_intel, flow_confidences)
 ```
 
 ### TypeScript Example
@@ -457,7 +465,7 @@ This framework provides an MCP (Model Context Protocol) server, enabling AI assi
 - `validate_scheme` - Validate scheme compliance
 - `generate_schemes` - Generate optimized schemes
 
-For detailed documentation, see [mcp/README.md](mcp/README.md)
+For detailed documentation, see [mcp/README.md](mcp/README.md).
 
 ---
 
@@ -465,7 +473,7 @@ For detailed documentation, see [mcp/README.md](mcp/README.md)
 
 This framework can be used as an AI Agent Skill, supporting rapid integration into various AI assistants.
 
-For detailed documentation, see [skill/README.md](skill/README.md)
+For detailed documentation, see [skill/README.md](skill/README.md).
 
 ---
 
@@ -519,6 +527,6 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) file for 
 
 ---
 
-*Providing marginal advantage through structured analysis, rigorous probability theory, and domain cognition—while acknowledging that in sports prediction, probability itself always has the last laugh.*
+*Providing marginal advantage through structured analysis, rigorous probability theory, and domain cognition—while acknowledging that in sports analytics, probability itself always has the last laugh.*
 
 *© 2026 — For Academic Research and Educational Purposes Only.*
