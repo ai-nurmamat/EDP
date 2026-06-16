@@ -158,9 +158,9 @@ export interface ISchemeLeg {
  */
 export interface IScheme {
   legs: ISchemeLeg[];
-  parlayType: string;
+  combinationType: string;
   multiplier: number;
-  stakePerCombination: number;
+  investmentPerCombination: number;
   riskLevel: RiskLevel;
   validationErrors: string[];
 }
@@ -563,11 +563,11 @@ export class FlowAnalyzer {
  * 3. Respect Rules - Comply with all betting rules
  */
 export class SchemeDesigner {
-  private readonly maxParlayDepthNoScore = 8;
-  private readonly maxParlayDepthWithScore = 4;
+  private readonly maxSelectionDepthNoScore = 8;
+  private readonly maxSelectionDepthWithScore = 4;
   private readonly maxMultiplier = 99;
-  private readonly maxTicketAmount = 20000;
-  private readonly minStake = 2.0;
+  private readonly maxInvestmentAmount = 20000;
+  private readonly minInvestment = 2.0;
   private readonly minReturnMultiplier = 3.0;
 
   /**
@@ -597,7 +597,7 @@ export class SchemeDesigner {
       );
     }
 
-    // Rule: Same match different markets cannot parlay
+    // Rule: Same match different markets cannot combine
     const matchMarkets = new Map<string, Set<MarketType>>();
     for (const leg of scheme.legs) {
       if (!matchMarkets.has(leg.matchId)) {
@@ -610,7 +610,7 @@ export class SchemeDesigner {
       markets.add(leg.marketType);
     }
 
-    // Rule: Parlay depth limits
+    // Rule: Selection depth limits
     const hasScore = scheme.legs.some(
       (leg) => leg.marketType === MarketType.CORRECT_SCORE
     );
@@ -618,12 +618,12 @@ export class SchemeDesigner {
       (leg) => leg.marketType === MarketType.HALF_TIME_FULL_TIME
     );
     const maxDepth = hasScore || hasHTFT
-      ? this.maxParlayDepthWithScore
-      : this.maxParlayDepthNoScore;
+      ? this.maxSelectionDepthWithScore
+      : this.maxSelectionDepthNoScore;
 
     if (scheme.legs.length > maxDepth) {
       errors.push(
-        `Rule violation: Parlay depth ${scheme.legs.length} exceeds max ${maxDepth}`
+        `Rule violation: Selection depth ${scheme.legs.length} exceeds max ${maxDepth}`
       );
     }
 
@@ -703,9 +703,9 @@ export class SchemeDesigner {
       const combinedOdds = leg.odds;
       const scheme: IScheme = {
         legs: [leg],
-        parlayType: '单关',
+        combinationType: '单关',
         multiplier: 1,
-        stakePerCombination: 10,
+        investmentPerCombination: 10,
         riskLevel: this.classifyRiskLevel(combinedOdds),
         validationErrors: [],
       };
@@ -714,7 +714,7 @@ export class SchemeDesigner {
       const [result, errors] = this.validateScheme(scheme);
       if (result === ValidationResult.VALID) {
         schemes.push(scheme);
-        allocated += scheme.stakePerCombination * scheme.multiplier;
+        allocated += scheme.investmentPerCombination * scheme.multiplier;
       }
     }
 

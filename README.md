@@ -544,20 +544,20 @@ EV = P(成功) × (赔率 - 1) - P(失败) × 1
 
 ```bash
 # Python
-pip install spaf-framework
+pip install expected-domain-perception
 
 # JavaScript/TypeScript
-npm install spaf-framework
+npm install expected-domain-perception
 ```
 
 ### Python 示例
 
 ```python
-from spaf import (
+from expected_domain_perception import (
     ProbabilityEngine,
     FlowAmplificationEngine,
     DomainAwarenessSystem,
-    ValueBettingEngine,
+    ValueAssessmentEngine,
 )
 
 # 初始化引擎
@@ -579,7 +579,7 @@ amp_report = amplifier.calculate_amplification(flow_report, outcome_probs)
 domain_report = awareness.analyze_match(match_intel, flow_confidences)
 
 # 价值评估分析 - 核心：识别正EV机会
-value_bets = value_engine.identify_value_bets(
+value_opportunities = value_engine.identify_value_opportunities(
     market_odds={'home': 1.8, 'draw': 3.5, 'away': 5.0},
     assessed_probabilities={'home': 0.50, 'draw': 0.30, 'away': 0.25},
     flow_confidences={'home': 0.7, 'draw': 0.5, 'away': 0.6},
@@ -596,7 +596,7 @@ portfolio = value_engine.calculate_portfolio_recommendations(
 ### TypeScript 示例
 
 ```typescript
-import { ProbabilityEngine, FlowAnalyzer, SchemeDesigner } from 'spaf-framework';
+import { ProbabilityEngine, FlowAnalyzer, SchemeDesigner } from 'expected-domain-perception';
 
 const engine = new ProbabilityEngine();
 const analyzer = new FlowAnalyzer();
@@ -626,8 +626,8 @@ const schemes = designer.generateSchemes(flowReport, { budget: 100 });
 ```json
 {
   "mcpServers": {
-    "spaf": {
-      "command": "spaf-mcp-server",
+    "expected-domain-perception": {
+      "command": "edp-mcp-server",
       "args": []
     }
   }
@@ -662,8 +662,8 @@ const schemes = designer.generateSchemes(flowReport, { budget: 100 });
 
 ```bash
 # 克隆仓库
-git clone https://github.com/your-org/spaf-framework.git
-cd spaf-framework
+git clone https://github.com/your-org/expected-domain-perception.git
+cd expected-domain-perception
 
 # Python 开发
 python -m venv venv

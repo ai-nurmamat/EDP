@@ -1,5 +1,7 @@
 """
-SPAF - Sports Analytics Framework
+Expected Domain Perception
+期望域感知法
+
 Advanced Probability Analysis Engine with Bayesian Inference
 
 This module implements the core probability analysis engine featuring:
@@ -8,8 +10,9 @@ This module implements the core probability analysis engine featuring:
 - Time series momentum analysis
 - Elo-based team strength modeling
 
+A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness
+
 ⚠️ ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY
-This software is intended for statistical analysis and research.
 """
 
 from __future__ import annotations

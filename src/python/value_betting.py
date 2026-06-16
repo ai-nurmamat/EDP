@@ -1,11 +1,15 @@
 """
-SPAF - Sports Analytics Framework
+Expected Domain Perception
+期望域感知法
+
 Value Assessment Module - Probability Philosophy Core
 
-This module implements the core probability philosophy of the SPAF framework:
+This module implements the core probability philosophy of Expected Domain Perception:
 - NOT researching the most likely outcome (lowest odds)
 - BUT identifying outcomes with positive Expected Value (EV)
 - The key: Multiple failures + One success = Overall profit
+
+A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness
 
 Academic Foundation:
 - Kelly Criterion (Kelly, 1956) - EV maximization
@@ -328,7 +332,7 @@ class ValueAssessmentEngine:
 
     DIFFERENT FROM TRADITIONAL APPROACH:
     ┌─────────────────────────────────────────────────────────────────┐
-    │  TRADITIONAL (❌)          │  VALUE ASSESSMENT (✅ SPAF)        │
+    │  TRADITIONAL (❌)          │  VALUE ASSESSMENT (✅ EDP)        │
     ├─────────────────────────────────────────────────────────────────┤
     │  Research lowest odds        │  Identify highest EV               │
     │  (most likely to succeed)    │  (best expected return)           │
@@ -600,7 +604,7 @@ class ValueAssessmentEngine:
         """
         explanation = """
 ================================================================================
-SPAF VALUE ASSESSMENT PHILOSOPHY - Academic Explanation
+EXPECTED DOMAIN PERCEPTION VALUE ASSESSMENT PHILOSOPHY - Academic Explanation
 ================================================================================
 
 CORE PRINCIPLE:
@@ -648,7 +652,7 @@ ACADEMIC SUPPORT:
 • Prospect Theory (Kahneman & Tversky, 1979): Risk asymmetry
 • Power Law Distribution: Extreme event statistics
 
-IMPLEMENTATION IN SPAF:
+IMPLEMENTATION IN EXPECTED DOMAIN PERCEPTION:
 ────────────────────────────────────────────────────────────────────────────────
 1. Domain Awareness System → Assesses TRUE probability of events
 2. Value Assessment Engine → Compares Market_Odds vs Fair_Odds

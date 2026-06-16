@@ -1,6 +1,6 @@
-# Contributing to SPAF
+# Contributing to Expected Domain Perception
 
-Thank you for your interest in contributing to the Sports Probability Analysis Framework!
+Thank you for your interest in contributing to the Expected Domain Perception methodology!
 
 ## ⚠️ Important Notice
 
@@ -36,8 +36,8 @@ Contributions must align with this purpose. We do not accept contributions that:
 
 ```bash
 # Clone your fork
-git clone https://github.com/your-username/spaf-framework.git
-cd spaf-framework
+git clone https://github.com/your-username/expected-domain-perception.git
+cd expected-domain-perception
 
 # Python setup
 python -m venv venv
@@ -94,4 +94,4 @@ Open an issue for any questions about contributing.
 
 ---
 
-Thank you for helping improve SPAF! 🎯
+Thank you for helping improve Expected Domain Perception! 🎯

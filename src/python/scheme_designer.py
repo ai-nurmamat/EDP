@@ -1,11 +1,15 @@
 """
-SPAF - Sports Probability Analysis Framework
+Expected Domain Perception
+期望域感知法
+
 Scheme Design Engine.
 
 This module implements the scheme design engine based on:
 - Three Principles (non-negotiable constraints)
-- Modern Portfolio Theory adapted for prediction markets (Markowitz, 1952)
+- Modern Portfolio Theory adapted for probability analysis (Markowitz, 1952)
 - Kelly criterion variant for capital allocation
+
+A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness
 
 References:
     Markowitz, H. (1952). "Portfolio Selection."
@@ -69,11 +73,11 @@ class Scheme:
     """
     A complete scheme (ticket) with multiple legs.
 
-    Represents a single parlay/bet slip configuration.
+    Represents a single multi-leg investment configuration.
     """
 
     legs: list[SchemeLeg]
-    parlay_type: str  # e.g., "2-fold", "3-fold", "M-fold-N"
+    combination_type: str  # e.g., "2-fold", "3-fold", "M-fold-N"
     multiplier: int = 1
     stake_per_combination: float = 2.0
     risk_level: RiskLevel = RiskLevel.BALANCED
@@ -81,12 +85,12 @@ class Scheme:
 
     @property
     def num_combinations(self) -> int:
-        """Calculate number of combinations for M-fold-N parlays."""
-        # Simplified: for standard parlays, it's 1
+        """Calculate number of combinations for M-fold-N scheme."""
+        # Simplified: for standard combinations, it's 1
         # For M-fold-N, calculate combinations
-        if "串" in self.parlay_type:
+        if "串" in self.combination_type:
             # Parse Chinese format like "3串4"
-            parts = self.parlay_type.replace("串", " ").split()
+            parts = self.combination_type.replace("串", " ").split()
             if len(parts) == 2:
                 m = int(parts[0])
                 n = int(parts[1])
@@ -95,7 +99,7 @@ class Scheme:
         return 1
 
     def _calculate_m_fold_n_combinations(self, m: int, n: int) -> int:
-        """Calculate number of combinations for M-fold-N parlay."""
+        """Calculate number of combinations for M-fold-N scheme."""
         # This is a simplified implementation
         # Real implementation would use combinatorial formulas
         from math import comb
@@ -183,13 +187,13 @@ class SchemeDesigner:
     """
 
     # Rule constants
-    MAX_PARLAY_DEPTH_NO_SCORE = 8
-    MAX_PARLAY_DEPTH_WITH_SCORE = 4
-    MAX_PARLAY_DEPTH_WITH_HTFT = 4
-    MAX_PARLAY_DEPTH_WITH_TOTAL = 6
+    MAX_SELECTION_DEPTH_NO_SCORE = 8
+    MAX_SELECTION_DEPTH_WITH_SCORE = 4
+    MAX_SELECTION_DEPTH_WITH_HTFT = 4
+    MAX_SELECTION_DEPTH_WITH_TOTAL = 6
     MAX_MULTIPLIER = 99
-    MAX_TICKET_AMOUNT = 20000
-    MIN_STAKE = 2.0
+    MAX_INVESTMENT_AMOUNT = 20000
+    MIN_INVESTMENT = 2.0
     MIN_RETURN_MULTIPLIER = 3.0
 
     # Budget allocation by risk level
@@ -237,7 +241,7 @@ class SchemeDesigner:
                 f"below minimum {self.MIN_RETURN_MULTIPLIER}"
             )
 
-        # Rule: Same match different markets cannot parlay
+        # Rule: Same match different markets cannot combine
         match_markets: dict[str, set] = {}
         for leg in scheme.legs:
             if leg.match_id not in match_markets:
@@ -248,7 +252,7 @@ class SchemeDesigner:
                 )
             match_markets[leg.match_id].add(leg.market_type)
 
-        # Rule: Parlay depth limits
+        # Rule: Selection depth limits
         has_score = any(
             leg.market_type == MarketType.CORRECT_SCORE for leg in scheme.legs
         )
@@ -257,11 +261,11 @@ class SchemeDesigner:
         )
         max_depth = self.MAX_PARLAY_DEPTH_NO_SCORE
         if has_score or has_htft:
-            max_depth = self.MAX_PARLAY_DEPTH_WITH_SCORE
+            max_depth = self.MAX_SELECTION_DEPTH_WITH_SCORE
 
         if len(scheme.legs) > max_depth:
             errors.append(
-                f"Rule violation: Parlay depth {len(scheme.legs)} exceeds max {max_depth}"
+                f"Rule violation: Selection depth {len(scheme.legs)} exceeds max {max_depth}"
             )
 
         # Rule: Multiplier limit
@@ -270,16 +274,16 @@ class SchemeDesigner:
                 f"Rule violation: Multiplier {scheme.multiplier} exceeds max {self.MAX_MULTIPLIER}"
             )
 
-        # Rule: Ticket amount limit
-        if scheme.total_cost > self.MAX_TICKET_AMOUNT:
+        # Rule: Investment amount limit
+        if scheme.total_cost > self.MAX_INVESTMENT_AMOUNT:
             errors.append(
-                f"Rule violation: Ticket amount {scheme.total_cost} exceeds max {self.MAX_TICKET_AMOUNT}"
+                f"Rule violation: Investment amount {scheme.total_cost} exceeds max {self.MAX_INVESTMENT_AMOUNT}"
             )
 
-        # Rule: Minimum stake
-        if scheme.stake_per_combination < self.MIN_STAKE:
+        # Rule: Minimum investment
+        if scheme.stake_per_combination < self.MIN_INVESTMENT:
             errors.append(
-                f"Rule violation: Stake {scheme.stake_per_combination} below minimum {self.MIN_STAKE}"
+                f"Rule violation: Investment {scheme.stake_per_combination} below minimum {self.MIN_INVESTMENT}"
             )
 
         if errors:
@@ -346,7 +350,7 @@ class SchemeDesigner:
 
             scheme = Scheme(
                 legs=[leg],
-                parlay_type="单关",  # Single bet
+                combination_type="单关",  # Single outcome selection
                 multiplier=1,
                 stake_per_combination=10.0,
                 risk_level=self._classify_risk_level(3.0),
@@ -397,7 +401,7 @@ class SchemeDesigner:
                 )
                 scheme.stake_per_combination = max(
                     scheme.stake_per_combination,
-                    self.MIN_STAKE,
+                    self.MIN_INVESTMENT,
                 )
 
         # Recalculate allocated budget

@@ -1,6 +1,6 @@
-# SPAF MCP Server
+# Expected Domain Perception MCP Server
 
-Model Context Protocol (MCP) server for the SPAF framework.
+Model Context Protocol (MCP) server for the Expected Domain Perception framework.
 
 ## ⚠️ Disclaimer
 
@@ -11,7 +11,7 @@ Sports prediction involves real financial risk. No system can guarantee profits.
 ## Installation
 
 ```bash
-pip install spaf-mcp-server
+pip install expected-domain-perception-mcp
 ```
 
 ## Configuration
@@ -21,8 +21,8 @@ Add to your MCP client configuration (e.g., Claude Desktop):
 ```json
 {
   "mcpServers": {
-    "spaf": {
-      "command": "spaf-mcp-server",
+    "expected-domain-perception": {
+      "command": "edp-mcp-server",
       "args": []
     }
   }
@@ -98,8 +98,8 @@ Validate a scheme against Three Principles and rules.
 
 **Parameters:**
 - `legs` (array): List of scheme legs
-- `multiplier` (integer, optional): Bet multiplier (default: 1)
-- `stake_per_combination` (number, optional): Stake amount (default: 2.0)
+- `multiplier` (integer, optional): Multiplier (default: 1)
+- `stake_per_combination` (number, optional): Investment amount (default: 2.0)
 
 **Returns:**
 - Validation result with any errors
@@ -121,7 +121,7 @@ Generate optimized schemes within budget.
 
 ## Usage with AI Assistants
 
-Once configured, you can use natural language to interact with the SPAF framework:
+Once configured, you can use natural language to interact with Expected Domain Perception:
 
 ```
 User: Calculate the true probability for odds home 1.5, draw 4.2, away 6.0
@@ -142,8 +142,8 @@ The bookmaker margin (overround) is 5.4%.
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/spaf-framework.git
-cd spaf-framework/mcp
+git clone https://github.com/your-org/expected-domain-perception.git
+cd expected-domain-perception/mcp
 
 # Install dependencies
 pip install -e ".[dev]"

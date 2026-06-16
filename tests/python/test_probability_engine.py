@@ -1,5 +1,5 @@
 """
-Tests for SPAF Probability Engine
+Tests for Expected Domain Perception - Probability Engine
 """
 
 import pytest

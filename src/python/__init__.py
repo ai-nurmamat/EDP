@@ -8,7 +8,7 @@ A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow 
 For academic research and educational purposes only.
 
 Example:
-    >>> from spaf import ProbabilityEngine, FlowAmplificationEngine, DomainAwarenessSystem
+    >>> from expected_domain_perception import ProbabilityEngine, FlowAmplificationEngine, DomainAwarenessSystem
     >>>
     >>> # Initialize engines
     >>> engine = ProbabilityEngine()
@@ -67,7 +67,7 @@ from .value_betting import (
 )
 
 __version__ = "1.0.0"
-__author__ = "SPAF Team"
+__author__ = "Expected Domain Perception Team"
 __license__ = "MIT"
 
 __all__ = [

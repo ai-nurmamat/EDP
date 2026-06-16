@@ -55,7 +55,7 @@
 │  Scheme Summary → Narrative Generation → Quality Checklist  │
 ├─────────────────────────────────────────────────────────────┤
 │                    Scheme Design Engine                      │
-│  Risk Stratification → Parlay Construction → Budget Alloc   │
+│  Risk Stratification → Combination Construction → Budget Alloc   │
 ├─────────────────────────────────────────────────────────────┤
 │                    Flow Amplification Engine                 │
 │  Base Flow → Directional Consistency → Gradient Position    │
@@ -200,9 +200,9 @@ The OODA Loop was developed by U.S. Air Force Colonel John Boyd (Boyd, 1987, "A 
 │                                                          │
 │  Decide                                                   │
 │  ├─ Three Principles validation (each leg must pass)      │
-│  ├─ Scheme construction (stratification + parlay +      │
+│  ├─ Scheme construction (stratification + combination +      │
 │  │                       budget allocation)             │
-│  └─ Mixed parlay compliance check                       │
+│  └─ Mixed combination compliance check                       │
 │                                                          │
 │  Act                                                      │
 │  ├─ Generate narrative                                   │
@@ -455,25 +455,25 @@ All schemes **must** satisfy the following three principles. Any scheme violatin
 |---|-----------|---------------------|
 | 1 | **Respect Probability Flow** | Each leg of each ticket must have positive probability flow. Zero-flow legs acceptable only when no positive alternative exists. **Negative-flow legs strictly prohibited.** |
 | 2 | **Respect Asymmetric Returns** | Each ticket must provide meaningful return potential. Minimum target: 3x return. Conservative "safe ticket" budget not exceeding 20% of total budget. |
-| 3 | **Respect Rules** | Same match different markets cannot parlay. Correct score max 4-fold. Each ticket max 99x multiplier. Each ticket max ¥20,000. |
+| 3 | **Respect Rules** | Same match different markets cannot combine. Correct score max 4-fold. Each ticket max 99x multiplier. Each ticket max ¥20,000. |
 
 **Priority of Three Principles**: Principle 1 > Principle 3 > Principle 2.
 
-### Mixed Parlay Complete Rules
+### Mixed Combination Complete Rules
 
 #### Basic Rules
 
 | Rule | Description |
 |------|-------------|
-| **Different matches can mix** | Different markets from different matches **can** parlay |
-| **Same match cannot mix** | Different markets from same match **cannot** parlay |
+| **Different matches can mix** | Different markets from different matches **can** combine |
+| **Same match cannot mix** | Different markets from same match **cannot** combine |
 | **Minimum stake** | Each combination minimum ¥2 |
 | **Single ticket multiplier cap** | Single ticket maximum 99x |
 | **Single ticket amount cap** | Single ticket maximum ¥20,000 |
 
-#### Parlay Depth Limits
+#### Selection Depth Limits
 
-| Contains Correct Score/Half-Time | Max Parlay Depth |
+| Contains Correct Score/Half-Time | Max Selection Depth |
 |----------------------------------|-----------------|
 | No | Max 8-fold |
 | Contains Correct Score | Max 4-fold |
@@ -491,7 +491,7 @@ Each generated ticket must pass the following validation pipeline:
 ```
 For each ticket:
   ✓ 1. No legs from same match different markets
-  ✓ 2. Contains correct score/half-time → total parlay depth ≤ 4
+  ✓ 2. Contains correct score/half-time → total selection depth ≤ 4
   ✓ 3. Each stake × combinations ≤ ¥50 (single physical ticket limit)
   ✓ 4. Each stake ≥ ¥2
   ✓ 5. Multiplier ≤ 99
@@ -553,16 +553,16 @@ For complete reference list, see [docs/theory/references.md](docs/theory/referen
 
 ```bash
 # Python
-pip install spaf-framework
+pip install expected-domain-perception
 
 # JavaScript/TypeScript
-npm install spaf-framework
+npm install expected-domain-perception
 ```
 
 ### Python Example
 
 ```python
-from spaf import (
+from expected_domain_perception import (
     ProbabilityEngine,
     FlowAmplificationEngine,
     DomainAwarenessSystem,
@@ -605,7 +605,7 @@ portfolio = value_engine.calculate_portfolio_recommendations(
 ### TypeScript Example
 
 ```typescript
-import { ProbabilityEngine, FlowAnalyzer, SchemeDesigner } from 'spaf-framework';
+import { ProbabilityEngine, FlowAnalyzer, SchemeDesigner } from 'expected-domain-perception';
 
 const engine = new ProbabilityEngine();
 const analyzer = new FlowAnalyzer();
@@ -635,8 +635,8 @@ This framework provides an MCP (Model Context Protocol) server, enabling AI assi
 ```json
 {
   "mcpServers": {
-    "spaf": {
-      "command": "spaf-mcp-server",
+    "expected-domain-perception": {
+      "command": "edp-mcp-server",
       "args": []
     }
   }
@@ -671,8 +671,8 @@ We welcome community contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/spaf-framework.git
-cd spaf-framework
+git clone https://github.com/your-org/expected-domain-perception.git
+cd expected-domain-perception
 
 # Python development
 python -m venv venv
