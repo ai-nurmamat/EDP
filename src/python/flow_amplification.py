@@ -261,24 +261,24 @@ class FlowAmplificationEngine:
         if not adjacent_outcomes:
             return 0.0
 
-        outcome_direction = flow_directions.get(outcome, "stable")
+        outcome_direction = flow_directions.get(outcome, "neutral")
         
         # Count adjacent with same or supportive direction
         consistent_count = 0
         for adj in adjacent_outcomes:
-            adj_direction = flow_directions.get(adj, "stable")
+            adj_direction = flow_directions.get(adj, "neutral")
             
-            if outcome_direction == "upward":
-                # Upward is supported by upward or slight stable drift
-                if adj_direction in ("upward", "stable"):
+            if outcome_direction == "positive":
+                # Positive is supported by positive or slight neutral drift
+                if adj_direction in ("positive", "neutral"):
                     consistent_count += 1
-            elif outcome_direction == "downward":
-                # Downward is supported by downward or stable
-                if adj_direction in ("downward", "stable"):
+            elif outcome_direction == "negative":
+                # Negative is supported by negative or neutral
+                if adj_direction in ("negative", "neutral"):
                     consistent_count += 1
             else:
-                # Stable is supported by stable
-                if adj_direction == "stable":
+                # Neutral is supported by neutral
+                if adj_direction == "neutral":
                     consistent_count += 1
 
         return consistent_count / len(adjacent_outcomes)
@@ -422,14 +422,14 @@ class FlowAmplificationEngine:
             if adj_outcome in visited:
                 continue
                 
-            adj_direction = flow_directions.get(adj_outcome, "stable")
+            adj_direction = flow_directions.get(adj_outcome, "neutral")
             
             # Check if flow would propagate (same or supporting direction)
-            if direction == "upward" and adj_direction in ("upward", "stable"):
+            if direction == "positive" and adj_direction in ("positive", "neutral"):
                 depth = 1
                 # Signal strength decays with distance
                 signals.append((adj_outcome, flow_pp * 0.7))
-            elif direction == "downward" and adj_direction in ("downward", "stable"):
+            elif direction == "negative" and adj_direction in ("negative", "neutral"):
                 depth = 1
                 signals.append((adj_outcome, flow_pp * 0.7))
         
@@ -546,7 +546,7 @@ class FlowAmplificationEngine:
             )
 
             # Calculate amplification score
-            if flow_result.direction.value == "upward":
+            if flow_result.direction.value == "positive":
                 # Only positive flows get amplified
                 amplification_score = (
                     base_flow * 

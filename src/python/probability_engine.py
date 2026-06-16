@@ -35,9 +35,9 @@ class MarketType(Enum):
 class FlowDirection(Enum):
     """Probability flow direction classification."""
 
-    UPWARD = "upward"      # Market confidence increasing
-    DOWNWARD = "downward"  # Market confidence decreasing
-    STABLE = "stable"      # No significant change
+    POSITIVE = "positive"  # Market confidence increasing
+    NEGATIVE = "negative"  # Market confidence decreasing
+    NEUTRAL = "neutral"    # No significant change
 
 
 class IntelligenceSource(Enum):
@@ -216,8 +216,8 @@ class FlowReport:
             "match_id": self.match_id,
             "total_outcomes": len(self.flows),
             "upward_count": len(upward),
-            "downward_count": len([f for f in self.flows if f.direction == FlowDirection.DOWNWARD]),
-            "stable_count": len([f for f in self.flows if f.direction == FlowDirection.STABLE]),
+            "downward_count": len([f for f in self.flows if f.direction == FlowDirection.NEGATIVE]),
+            "neutral_count": len([f for f in self.flows if f.direction == FlowDirection.NEUTRAL]),
             "aggregate_momentum": self.aggregate_momentum,
             "time_delta_hours": self.time_delta.total_seconds() / 3600,
         }
@@ -632,11 +632,11 @@ class ProbabilityEngine:
 
             # Classify direction
             if flow_pp > self.flow_threshold_low:
-                direction = FlowDirection.UPWARD
+                direction = FlowDirection.POSITIVE
             elif flow_pp < -self.flow_threshold_low:
-                direction = FlowDirection.DOWNWARD
+                direction = FlowDirection.NEGATIVE
             else:
-                direction = FlowDirection.STABLE
+                direction = FlowDirection.NEUTRAL
 
             # Assess significance
             abs_flow = abs(flow_pp)

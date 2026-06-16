@@ -6,7 +6,10 @@ import pytest
 from datetime import datetime
 
 import sys
-sys.path.insert(0, '/workspace/src/python')
+import os
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'python'))
 
 from probability_engine import (
     ProbabilityEngine,
