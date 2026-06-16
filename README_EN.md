@@ -104,12 +104,12 @@ The system employs a **Directed Acyclic Graph (DAG) pipeline architecture**, whe
 
 ### Contrast with Traditional Approach
 
-| Traditional (❌) | Value Assessment (✅ SPAF) |
-|-----------------|---------------------------|
+| Traditional (❌) | Expected Domain Perception (✅) |
+|-----------------|-------------------------------|
 | Research lowest odds | Identify highest EV |
 | High success rate | Low success rate, high returns |
 | Many small wins | Few big wins cover many small failures |
-| Guaranteed long-term loss | Mathematical long-term edge |
+| Negative mathematical expectation | Mathematical long-term edge |
 
 ### Mathematical Foundation
 
