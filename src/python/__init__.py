@@ -65,7 +65,7 @@ from .value_betting import (
     ValueBettingEngine,
 )
 
-__version__ = "4.1.0"
+__version__ = "1.0.0"
 __author__ = "SPAF Team"
 __license__ = "MIT"
 
