@@ -1,5 +1,7 @@
 """
-SPAF - Sports Analytics Framework
+Expected Domain Perception
+期望域感知法
+
 Advanced Probability Analysis Engine with Bayesian Inference
 
 This module implements the core probability analysis engine featuring:
@@ -8,8 +10,9 @@ This module implements the core probability analysis engine featuring:
 - Time series momentum analysis
 - Elo-based team strength modeling
 
+A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness
+
 ⚠️ ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY
-This software is intended for statistical analysis and research.
 """
 
 from __future__ import annotations
@@ -35,9 +38,9 @@ class MarketType(Enum):
 class FlowDirection(Enum):
     """Probability flow direction classification."""
 
-    UPWARD = "upward"      # Market confidence increasing
-    DOWNWARD = "downward"  # Market confidence decreasing
-    STABLE = "stable"      # No significant change
+    POSITIVE = "positive"  # Market confidence increasing
+    NEGATIVE = "negative"  # Market confidence decreasing
+    NEUTRAL = "neutral"    # No significant change
 
 
 class IntelligenceSource(Enum):
@@ -216,8 +219,8 @@ class FlowReport:
             "match_id": self.match_id,
             "total_outcomes": len(self.flows),
             "upward_count": len(upward),
-            "downward_count": len([f for f in self.flows if f.direction == FlowDirection.DOWNWARD]),
-            "stable_count": len([f for f in self.flows if f.direction == FlowDirection.STABLE]),
+            "downward_count": len([f for f in self.flows if f.direction == FlowDirection.NEGATIVE]),
+            "neutral_count": len([f for f in self.flows if f.direction == FlowDirection.NEUTRAL]),
             "aggregate_momentum": self.aggregate_momentum,
             "time_delta_hours": self.time_delta.total_seconds() / 3600,
         }
@@ -632,11 +635,11 @@ class ProbabilityEngine:
 
             # Classify direction
             if flow_pp > self.flow_threshold_low:
-                direction = FlowDirection.UPWARD
+                direction = FlowDirection.POSITIVE
             elif flow_pp < -self.flow_threshold_low:
-                direction = FlowDirection.DOWNWARD
+                direction = FlowDirection.NEGATIVE
             else:
-                direction = FlowDirection.STABLE
+                direction = FlowDirection.NEUTRAL
 
             # Assess significance
             abs_flow = abs(flow_pp)

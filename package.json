@@ -1,7 +1,7 @@
 {
-  "name": "spaf-framework",
-  "version": "4.0.0",
-  "description": "Sports Probability Analysis Framework - Domain-Aware, Situational-Awareness-Driven, Probability-Flow-Based Optimization System",
+  "name": "expected-domain-perception",
+  "version": "1.0.0",
+  "description": "Expected Domain Perception: A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -15,22 +15,22 @@
   "keywords": [
     "probability",
     "analysis",
-    "sports",
-    "prediction",
+    "expected-value",
+    "domain-awareness",
     "bayesian",
     "flow-analysis",
     "optimization"
   ],
-  "author": "SPAF Team",
+  "author": "Expected Domain Perception Team",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/spaf-framework.git"
+    "url": "https://github.com/your-org/expected-domain-perception.git"
   },
   "bugs": {
-    "url": "https://github.com/your-org/spaf-framework/issues"
+    "url": "https://github.com/your-org/expected-domain-perception/issues"
   },
-  "homepage": "https://github.com/your-org/spaf-framework#readme",
+  "homepage": "https://github.com/your-org/expected-domain-perception#readme",
   "devDependencies": {
     "@types/jest": "^29.5.0",
     "@types/node": "^20.0.0",

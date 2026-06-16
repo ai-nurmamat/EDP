@@ -1,13 +1,14 @@
 """
-SPAF - Sports Analytics Framework
+Expected Domain Perception
+期望域感知法
 
-A comprehensive domain-aware, situational-awareness-driven, probability-flow-based
-sports analytics optimization system.
+A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness
+基于概率流向与全域感知的非对称期望值优势发现方法论
 
 For academic research and educational purposes only.
 
 Example:
-    >>> from spaf import ProbabilityEngine, FlowAmplificationEngine, DomainAwarenessSystem
+    >>> from expected_domain_perception import ProbabilityEngine, FlowAmplificationEngine, DomainAwarenessSystem
     >>>
     >>> # Initialize engines
     >>> engine = ProbabilityEngine()
@@ -56,8 +57,17 @@ from .domain_awareness import (
     DomainAwarenessSystem,
 )
 
-__version__ = "4.1.0"
-__author__ = "SPAF Team"
+from .value_betting import (
+    ValueClassification,
+    OutcomeCategory,
+    ValueMetrics,
+    ValueOpportunity,
+    ValuePortfolio,
+    ValueAssessmentEngine,
+)
+
+__version__ = "1.0.0"
+__author__ = "Expected Domain Perception Team"
 __license__ = "MIT"
 
 __all__ = [
@@ -88,4 +98,11 @@ __all__ = [
     "MatchIntelligence",
     "DomainAwarenessReport",
     "DomainAwarenessSystem",
+    # Value Assessment
+    "ValueClassification",
+    "OutcomeCategory",
+    "ValueMetrics",
+    "ValueOpportunity",
+    "ValuePortfolio",
+    "ValueAssessmentEngine",
 ]

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-SPAF Framework - Basic Usage Example
+Expected Domain Perception - Basic Usage Example
+期望域感知法 - 基本使用示例
 
 This example demonstrates the core workflow:
 1. Calculate true probabilities from bookmaker odds
@@ -9,33 +10,34 @@ This example demonstrates the core workflow:
 4. Generate optimized schemes
 
 ⚠️ DISCLAIMER: This is for ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY.
-Sports prediction involves real financial risk. No system can guarantee profits.
+Probability analysis involves inherent uncertainty. No system can guarantee outcomes.
 """
 
 from datetime import datetime, timedelta
 
-# Import SPAF components
+# Import Expected Domain Perception components
 import sys
 sys.path.insert(0, '/workspace/src/python')
 
-from spaf import (
+from edp import (
     ProbabilityEngine,
-    FlowAnalyzer,
-    SchemeDesigner,
+    FlowAmplificationEngine,
+    DomainAwarenessSystem,
+    ValueAssessmentEngine,
     MarketType,
     ProbabilitySnapshot,
 )
 
 
 def main():
-    """Demonstrate basic SPAF framework usage."""
+    """Demonstrate basic Expected Domain Perception usage."""
 
     print("=" * 60)
-    print("SPAF - Sports Probability Analysis Framework")
+    print("Expected Domain Perception - 期望域感知法")
     print("Basic Usage Example")
     print("=" * 60)
     print("\n⚠️  DISCLAIMER: For ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY")
-    print("   Sports prediction involves real financial risk.\n")
+    print("   Probability analysis involves inherent uncertainty.\n")
 
     # ============================================================
     # Step 1: Calculate True Probability
@@ -102,10 +104,10 @@ def main():
     print(f"\nProbability Flow Analysis:")
 
     for flow in flow_report.flows:
-        direction_symbol = "↑" if flow.flow_pp > 0 else "↓" if flow.flow_pp < 0 else "→"
+        direction_symbol = "+" if flow.flow_pp > 0 else "-" if flow.flow_pp < 0 else "="
         print(
-            f"  {flow.outcome}: {flow.initial_prob:.1%} → {flow.latest_prob:.1%} "
-            f"({direction_symbol} {flow.flow_pp:+.1f}pp) [{flow.significance}]"
+            f"  {flow.outcome}: {flow.initial_prob:.1%} -> {flow.latest_prob:.1%} "
+            f"({direction_symbol} {abs(flow.flow_pp):.1f}pp) [{flow.significance}]"
         )
 
     positive_flows = flow_report.get_positive_flows()
@@ -118,7 +120,7 @@ def main():
     print("Step 3: Calculate Amplification Effect")
     print("-" * 40)
 
-    analyzer = FlowAnalyzer()
+    amplifier = FlowAmplificationEngine()
 
     # Define gradient map for correct score market
     # Adjacent outcomes in same direction
@@ -148,7 +150,7 @@ def main():
         'home_3_0': 0.85,
     }
 
-    amp_report = analyzer.calculate_amplification(
+    amp_report = amplifier.calculate_amplification(
         flow_report=flow_report,
         gradient_map=gradient_map,
         outcome_probabilities=outcome_probabilities,
@@ -170,40 +172,39 @@ def main():
     print(f"\nHigh Amplification Outcomes: {[a.outcome for a in high_amp]}")
 
     # ============================================================
-    # Step 4: Generate Schemes
+    # Step 4: Value Assessment
     # ============================================================
     print("\n" + "=" * 60)
-    print("Step 4: Generate Optimized Schemes")
+    print("Step 4: Value Assessment")
     print("-" * 40)
 
-    designer = SchemeDesigner()
+    value_engine = ValueAssessmentEngine()
 
-    match_data = {
-        'match_id': 'example_match_001',
-        'home_team': 'Team A',
-        'away_team': 'Team B',
-    }
+    # Market odds vs our assessed probabilities
+    market_odds = {'home': 1.8, 'draw': 3.5, 'away': 5.0}
+    assessed_probs = {'home': 0.50, 'draw': 0.30, 'away': 0.25}
 
-    bundle = designer.generate_schemes(
-        amplification_report=amp_report,
-        budget=100,
-        match_data=match_data,
-        max_schemes=5,
+    # Flow confidences
+    flow_confidences = {'home': 0.7, 'draw': 0.5, 'away': 0.6}
+
+    # Intelligence confidences
+    intelligence_confidences = {'home': 0.6, 'draw': 0.5, 'away': 0.8}
+
+    value_opportunities = value_engine.identify_value_opportunities(
+        market_odds=market_odds,
+        assessed_probabilities=assessed_probs,
+        flow_confidences=flow_confidences,
+        intelligence_confidences=intelligence_confidences,
     )
 
-    print(f"Total Budget: ¥{bundle.total_budget}")
-    print(f"Allocated Budget: ¥{bundle.allocated_budget:.2f}")
-    print(f"Number of Schemes: {len(bundle.schemes)}")
-
-    for i, scheme in enumerate(bundle.schemes, 1):
-        print(f"\n  Scheme {i}:")
-        print(f"    Type: {scheme.parlay_type}")
-        print(f"    Risk Level: {scheme.risk_level.value}")
-        print(f"    Legs: {[leg.selection for leg in scheme.legs]}")
-        print(f"    Combined Odds: {scheme.combined_odds:.2f}x")
-        print(f"    Stake: ¥{scheme.stake_per_combination:.2f}")
-        print(f"    Total Cost: ¥{scheme.total_cost:.2f}")
-        print(f"    Potential Return: ¥{scheme.potential_return:.2f}")
+    print("Value Assessment Results:")
+    for opp in value_opportunities:
+        print(
+            f"  {opp.outcome}: Odds={opp.market_odds:.2f}, "
+            f"Assessed Prob={opp.assessed_probability:.1%}, "
+            f"Value Ratio={opp.value_ratio:.2f}, "
+            f"EV={opp.expected_value:.2f}"
+        )
 
     # ============================================================
     # Summary
@@ -212,15 +213,15 @@ def main():
     print("Analysis Complete")
     print("=" * 60)
     print("\nKey Findings:")
-    print(f"  • Most likely outcome: {most_likely[0]} ({most_likely[1]:.1%})")
-    print(f"  • Bookmaker margin: {result.overround:.2%}")
-    print(f"  • Positive flow outcomes: {len(positive_flows)}")
-    print(f"  • High amplification signals: {len(high_amp)}")
-    print(f"  • Generated schemes: {len(bundle.schemes)}")
+    print(f"  - Most likely outcome: {most_likely[0]} ({most_likely[1]:.1%})")
+    print(f"  - Bookmaker margin: {result.overround:.2%}")
+    print(f"  - Positive flow outcomes: {len(positive_flows)}")
+    print(f"  - High amplification signals: {len(high_amp)}")
+    print(f"  - Value opportunities identified: {len(value_opportunities)}")
 
     print("\n⚠️  Remember: This is for EDUCATIONAL PURPOSES ONLY.")
-    print("   No system can guarantee profits in sports prediction.")
-    print("   Always gamble responsibly.\n")
+    print("   Probability analysis involves inherent uncertainty.")
+    print("   No system can guarantee specific outcomes.\n")
 
 
 if __name__ == "__main__":

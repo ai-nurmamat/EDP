@@ -3,20 +3,20 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "spaf-framework"
-version = "4.0.0"
-description = "Sports Probability Analysis Framework - Domain-Aware, Situational-Awareness-Driven, Probability-Flow-Based Optimization System"
+name = "expected-domain-perception"
+version = "1.0.0"
+description = "Expected Domain Perception: A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
 authors = [
-    {name = "SPAF Team", email = "spaf@example.com"}
+    {name = "Expected Domain Perception Team", email = "edp@example.com"}
 ]
 keywords = [
     "probability",
     "analysis",
-    "sports",
-    "prediction",
+    "expected-value",
+    "domain-awareness",
     "bayesian",
     "flow-analysis",
     "optimization"
@@ -56,10 +56,10 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/your-org/spaf-framework"
-Documentation = "https://github.com/your-org/spaf-framework#readme"
-Repository = "https://github.com/your-org/spaf-framework.git"
-Issues = "https://github.com/your-org/spaf-framework/issues"
+Homepage = "https://github.com/your-org/expected-domain-perception"
+Documentation = "https://github.com/your-org/expected-domain-perception#readme"
+Repository = "https://github.com/your-org/expected-domain-perception.git"
+Issues = "https://github.com/your-org/expected-domain-perception/issues"
 
 [tool.setuptools.packages.find]
 where = ["src/python"]

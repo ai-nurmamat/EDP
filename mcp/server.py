@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-SPAF MCP Server - Model Context Protocol Server
+Expected Domain Perception MCP Server
+期望域感知法 MCP 服务器
 
-This module implements an MCP server for the SPAF framework,
-enabling AI assistants to directly invoke analysis capabilities.
+Model Context Protocol (MCP) Server for Expected Domain Perception.
+Enabling AI assistants to directly invoke analysis capabilities.
 
 ⚠️ DISCLAIMER: For ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY.
 """
@@ -24,9 +25,9 @@ from flow_analyzer import FlowAnalyzer
 from scheme_designer import SchemeDesigner
 
 
-class SPAFMCPServer:
+class EDPMCPServer:
     """
-    MCP Server implementation for SPAF framework.
+    MCP Server implementation for Expected Domain Perception.
 
     Provides the following tools:
     - calculate_true_probability: Calculate true probabilities from odds
@@ -37,7 +38,7 @@ class SPAFMCPServer:
     """
 
     def __init__(self):
-        """Initialize the MCP server with SPAF engines."""
+        """Initialize the MCP server with Expected Domain Perception engines."""
         self.probability_engine = ProbabilityEngine()
         self.flow_analyzer = FlowAnalyzer()
         self.scheme_designer = SchemeDesigner()
@@ -291,10 +292,10 @@ class SPAFMCPServer:
 
 def main():
     """Run the MCP server."""
-    server = SPAFMCPServer()
+    server = EDPMCPServer()
 
     # Print available tools
-    print("SPAF MCP Server")
+    print("Expected Domain Perception MCP Server")
     print("=" * 40)
     print("\nAvailable Tools:")
     for tool in server.get_tools():

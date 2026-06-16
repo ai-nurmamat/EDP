@@ -1,6 +1,6 @@
-# SPAF Skill
+# Expected Domain Perception Skill
 
-AI Agent Skill for Sports Probability Analysis Framework.
+AI Agent Skill for Expected Domain Perception methodology.
 
 ## ⚠️ Disclaimer
 
@@ -81,10 +81,10 @@ Add to your AI agent's skill configuration:
 {
   "skills": [
     {
-      "name": "spaf-analysis",
+      "name": "expected-domain-perception",
       "description": "Sports probability analysis framework",
-      "version": "4.0.0",
-      "entry_point": "spaf.skill:analyze",
+      "version": "1.0.0",
+      "entry_point": "edp.skill:analyze",
       "capabilities": [
         "probability_calculation",
         "flow_analysis",
@@ -147,15 +147,15 @@ All generated schemes must satisfy:
 ## Installation
 
 ```bash
-pip install spaf-skill
+pip install expected-domain-perception-skill
 ```
 
 ## Development
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/spaf-framework.git
-cd spaf-framework/skill
+git clone https://github.com/your-org/expected-domain-perception.git
+cd expected-domain-perception/skill
 
 # Install dependencies
 pip install -e ".[dev]"

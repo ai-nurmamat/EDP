@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SPAF Framework - Basic Usage Example (TypeScript/JavaScript)
+ * Expected Domain Perception - Basic Usage Example (TypeScript/JavaScript)
  *
  * This example demonstrates the core workflow:
  * 1. Calculate true probabilities from bookmaker odds
@@ -24,7 +24,7 @@ import {
 
 function main(): void {
   console.log('='.repeat(60));
-  console.log('SPAF - Sports Probability Analysis Framework');
+  console.log('Expected Domain Perception - 期望域感知法');
   console.log('Basic Usage Example (TypeScript/JavaScript)');
   console.log('='.repeat(60));
   console.log('\n⚠️  DISCLAIMER: For ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY');
@@ -202,7 +202,7 @@ function main(): void {
     const potentialReturn = totalCost * (combinedOdds - 1);
 
     console.log(`\n  Scheme ${i + 1}:`);
-    console.log(`    Type: ${scheme.parlayType}`);
+    console.log(`    Type: ${scheme.combinationType}`);
     console.log(`    Risk Level: ${scheme.riskLevel}`);
     console.log(`    Legs: ${scheme.legs.map((l) => l.selection).join(', ')}`);
     console.log(`    Combined Odds: ${combinedOdds.toFixed(2)}x`);

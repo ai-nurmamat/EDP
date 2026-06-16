@@ -1,7 +1,8 @@
 """
-SPAF Framework - Type Definitions
+Expected Domain Perception - Type Definitions
+期望域感知法 - 类型定义
 
-This module contains type definitions and protocols for the SPAF framework.
+This module contains type definitions and protocols for Expected Domain Perception.
 """
 
 from __future__ import annotations

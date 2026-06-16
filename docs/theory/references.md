@@ -1,6 +1,6 @@
 # Academic References
 
-This document contains the complete list of academic references that form the theoretical foundation of the SPAF framework.
+This document contains the complete list of academic references that form the theoretical foundation of Expected Domain Perception.
 
 ## Core References
 
@@ -147,12 +147,12 @@ DOI: [10.3386/w15923](https://doi.org/10.3386/w15923)
 If you use this framework in academic work, please cite:
 
 ```bibtex
-@software{spaf2026,
-  author = {SPAF Team},
-  title = {SPAF: Sports Probability Analysis Framework},
+@software{expecteddomainperception2026,
+  author = {Expected Domain Perception Team},
+  title = {Expected Domain Perception: A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness},
   year = {2026},
-  version = {4.0.0},
-  url = {https://github.com/your-org/spaf-framework}
+  version = {1.0.0},
+  url = {https://github.com/your-org/expected-domain-perception}
 }
 ```
 

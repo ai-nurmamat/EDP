@@ -1,5 +1,7 @@
 """
-SPAF - Sports Analytics Framework
+Expected Domain Perception
+期望域感知法
+
 Domain-Aware Intelligence System
 
 This module implements the comprehensive domain awareness system that integrates
@@ -10,6 +12,8 @@ Features:
 - Cross-validation of signals
 - Situational awareness scoring
 - Temporal context analysis
+
+A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness
 
 ⚠️ ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY
 """

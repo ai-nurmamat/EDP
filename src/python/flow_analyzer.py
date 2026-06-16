@@ -1,13 +1,17 @@
 """
-SPAF - Sports Probability Analysis Framework
+Expected Domain Perception
+期望域感知法
+
 Flow Amplification Analysis Engine.
 
 This module implements the probability flow amplification effect analysis,
-which is one of the most powerful (and risky) analytical tools in the framework.
+which is one of the most powerful analytical tools in Expected Domain Perception.
 
 The amplification effect is based on:
 - Time series momentum (Moskowitz et al., 2012)
 - Information cascade models (Banerjee, 1992)
+
+A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness
 
 References:
     Moskowitz, T.J., Ooi, Y.H. & Pedersen, L.H. (2012). "Time Series Momentum."
