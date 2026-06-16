@@ -56,6 +56,15 @@ from .domain_awareness import (
     DomainAwarenessSystem,
 )
 
+from .value_betting import (
+    ValueClassification,
+    OutcomeCategory,
+    ValueMetrics,
+    ValueBet,
+    ValuePortfolio,
+    ValueBettingEngine,
+)
+
 __version__ = "4.1.0"
 __author__ = "SPAF Team"
 __license__ = "MIT"
@@ -88,4 +97,11 @@ __all__ = [
     "MatchIntelligence",
     "DomainAwarenessReport",
     "DomainAwarenessSystem",
+    # Value Betting
+    "ValueClassification",
+    "OutcomeCategory",
+    "ValueMetrics",
+    "ValueBet",
+    "ValuePortfolio",
+    "ValueBettingEngine",
 ]

@@ -27,11 +27,13 @@
 ## Table of Contents
 
 - [Architecture Overview](#architecture-overview)
+- [Probability Philosophy](#probability-philosophy-we-dont-bet-on-most-likely-we-bet-on-value)
 - [Design Philosophy](#design-philosophy-ooda-loop--loop-engineering--dag-execution)
 - [Data Acquisition Layer](#data-acquisition-layer)
 - [Probability Analysis Engine](#probability-analysis-engine)
 - [Probability Flow Amplification Effect](#probability-flow-amplification-effect)
 - [Domain Awareness System](#domain-awareness-system)
+- [Value Betting Engine](#value-betting-engine)
 - [Scheme Design Engine](#scheme-design-engine)
 - [Rule Compliance Layer](#rule-compliance-layer)
 - [Output Generation](#output-generation)
@@ -83,6 +85,96 @@ The system employs a **Directed Acyclic Graph (DAG) pipeline architecture**, whe
 | **Implementation Agnostic** | Probability extraction can use any vision recognition, OCR engine, or manual input |
 | **Rule Aware** | All output schemes must pass rule validation before presentation |
 | **Domain First** | Situational awareness guides but never overrides probability signals |
+
+---
+
+## Probability Philosophy: We Don't Bet on Most Likely, We Bet on VALUE
+
+### Core Philosophy
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  We do NOT bet: On the most likely outcome (lowest odds)                       │
+│  We DO bet: Where Market_Odds > Fair_Odds (Positive Expected Value)           │
+│                                                                               │
+│  Key Insight: Even if 80% of bets lose, the 20% that win can cover ALL        │
+│               losses AND generate profit                                      │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Contrast with Traditional Approach
+
+| Traditional (❌) | Value Betting (✅ SPAF) |
+|-----------------|------------------------|
+| Bet on lowest odds | Bet on highest EV |
+| High win rate | Low win rate, high returns |
+| Many small wins | Few big wins cover many small losses |
+| Guaranteed long-term loss | Mathematical long-term edge |
+
+### Mathematical Foundation
+
+**Expected Value (EV) Formula**:
+
+```
+EV = P(success) × (Odds - 1) - P(fail) × 1
+```
+
+**Condition for Value**: When Market_Odds > Fair_Odds, EV > 0
+
+**Example**:
+- Market offers 8.0 odds for outcome
+- Our assessment: True probability P = 15%
+- Market implies: P = 12.5% (1/8.0)
+- Market underestimates → **VALUE EXISTS!**
+
+```
+EV = 0.15 × 7 - 0.85 × 1 = 1.05 - 0.85 = +0.20 per unit staked
+```
+
+Even with only 15% win rate, this bet is profitable in the long run!
+
+### The "N Trials, 1 Success" Model
+
+If we place 20 bets at 5% of bankroll each, average odds 8.0, true probability 15%:
+
+**Expected Outcomes**:
+- Wins: 20 × 15% = 3 bets
+- Losses: 20 × 85% = 17 bets
+
+**If 3 bets win**:
+- Profit from wins: 3 × 5% × 8.0 = 120% of bankroll
+- Loss from 17 bets: 17 × 5% = 85% of bankroll
+- **Net Profit: 120% - 85% = +35% of bankroll!**
+
+**Power Law Distribution**: Few big wins (at high odds) cover many small losses.
+
+### Role of Domain Awareness System
+
+Domain Awareness evaluates **"real-world possibility of low-probability events"**:
+
+- Identify teams/events underestimated by the market
+- Assess tactics, squad, motivation factors
+- Determine if odds deviate from real-world possibility
+- **Key Question**: Not "which is most likely to win", but "which is underestimated"
+
+### Value Classification
+
+| Classification | Value Ratio (Market/Fair) | Description |
+|---------------|---------------------------|-------------|
+| **Exceptional** | ≥ 1.30 | Rare opportunity, market severely underestimates |
+| **High** | ≥ 1.20 | Significant value, clear positive EV |
+| **Moderate** | ≥ 1.10 | Positive but marginal EV |
+| **Fair** | ≥ 1.00 | Market efficiently priced |
+| **Poor** | < 1.00 | Negative EV, not recommended |
+
+### Academic Support
+
+| Theory | Literature | Application |
+|--------|------------|-------------|
+| Kelly Criterion | Kelly (1956) | Maximize log wealth growth |
+| Value Betting Theory | Market Efficiency Research | Exploit market inefficiencies |
+| Prospect Theory | Kahneman & Tversky (1979) | Risk-seeking in loss domain |
+| Power Law Distribution | Extreme Event Statistics | Big wins cover small losses |
 
 ---
 
@@ -275,6 +367,85 @@ Confidence = Flow_Strength × Intelligence_Support × Market_Consensus
 
 ---
 
+## Value Betting Engine
+
+### Core Philosophy
+
+The Value Betting Engine implements SPAF's **Probability Philosophy**:
+
+```
+NOT: Bet on "most likely to happen"
+BUT: Bet on "underestimated by market"
+```
+
+**Key Insight**:
+- Low probability events (high odds) ≠ will not happen
+- As long as odds are high enough, even low win rate can have **positive Expected Value**
+- Few big wins can cover many small losses (Power Law Distribution)
+
+### Expected Value Calculation
+
+```python
+EV = P(success) × (Odds - 1) - P(fail) × 1
+```
+
+**Condition for Value**: Market_Odds > Fair_Odds (EV > 0)
+
+### Value Ratio
+
+```python
+Value_Ratio = Market_Odds / Fair_Odds
+
+Example:
+- Market odds = 8.0
+- Our assessed probability = 15%
+- Fair odds = 1/0.15 = 6.67
+- Value Ratio = 8.0 / 6.67 = 1.20 (> 1.0 → VALUE!)
+```
+
+### Value Classification
+
+| Classification | Value Ratio | Strategy |
+|---------------|-------------|----------|
+| **Exceptional** | ≥ 1.30 | Focus, increase stake |
+| **High** | ≥ 1.20 | Priority selection, Kelly betting |
+| **Moderate** | ≥ 1.10 | Optional, cautious betting |
+| **Fair** | ≥ 1.00 | No edge, skip |
+| **Poor** | < 1.00 | Negative EV, strictly exclude |
+
+### "N Trials, 1 Success" Portfolio
+
+```python
+# 20 bets, 5% of bankroll each
+# Average odds 8.0, true probability 15%
+
+Expected Results:
+- Wins: 20 × 15% = 3 bets
+- Losses: 20 × 85% = 17 bets
+
+Profit Calculation:
+- 3 wins profit: 3 × 5% × 8.0 = 120% of bankroll
+- 17 losses: 17 × 5% = 85% of bankroll
+- Net Profit: 120% - 85% = +35% of bankroll!
+```
+
+### Synergy with Domain Awareness System
+
+```
+Domain Awareness                    Value Betting Engine
+      │                                     │
+      │  Evaluate "real possibility"        │  Determine "if value exists"
+      │  Identify underestimated events     │  Calculate Expected Value
+      │                                     │
+      └──────────────┬─────────────────────┘
+                     │
+                     ▼
+             Positive EV + High Confidence
+                  = Value Bet Signal
+```
+
+---
+
 ## Scheme Design Engine
 
 ### Three Principles (Non-Negotiable)
@@ -396,12 +567,14 @@ from spaf import (
     ProbabilityEngine,
     FlowAmplificationEngine,
     DomainAwarenessSystem,
+    ValueBettingEngine,
 )
 
 # Initialize engines
 engine = ProbabilityEngine()
 amplifier = FlowAmplificationEngine()
 awareness = DomainAwarenessSystem()
+value_engine = ValueBettingEngine()
 
 # Calculate true probability
 result = engine.calculate_true_probability({'home': 1.5, 'draw': 4.0, 'away': 6.0})
@@ -414,6 +587,20 @@ amp_report = amplifier.calculate_amplification(flow_report, outcome_probs)
 
 # Domain awareness analysis
 domain_report = awareness.analyze_match(match_intel, flow_confidences)
+
+# Value betting analysis - Core: Identify positive EV opportunities
+value_bets = value_engine.identify_value_bets(
+    market_odds={'home': 1.8, 'draw': 3.5, 'away': 5.0},
+    assessed_probabilities={'home': 0.50, 'draw': 0.30, 'away': 0.25},
+    flow_confidences={'home': 0.7, 'draw': 0.5, 'away': 0.6},
+    intelligence_confidences={'home': 0.6, 'draw': 0.5, 'away': 0.8},
+)
+
+# Create value portfolio
+portfolio = value_engine.calculate_portfolio_recommendations(
+    value_bets=value_bets,
+    total_bankroll=10000,
+)
 ```
 
 ### TypeScript Example
