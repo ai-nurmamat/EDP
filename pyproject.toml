@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "spaf-framework"
-version = "1.0.0"
+version = "4.1.0"
 description = "Sports Probability Analysis Framework - Domain-Aware, Situational-Awareness-Driven, Probability-Flow-Based Optimization System"
 readme = "README.md"
 license = {text = "MIT"}
