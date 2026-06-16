@@ -63,6 +63,7 @@ Issues = "https://github.com/your-org/spaf-framework/issues"
 
 [tool.setuptools.packages.find]
 where = ["src/python"]
+include = ["spaf*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests/python"]

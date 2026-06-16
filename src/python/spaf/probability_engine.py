@@ -197,7 +197,7 @@ class FlowReport:
     initial_snapshot: ProbabilitySnapshot
     latest_snapshot: ProbabilitySnapshot
     flows: list[FlowResult] = field(default_factory=list)
-    time_delta: timedelta = field(default_factory=timedelta.zero)
+    time_delta: timedelta = field(default_factory=lambda: timedelta(0))
     generated_at: datetime = field(default_factory=datetime.now)
     aggregate_momentum: float = 0.0  # Overall market momentum
 

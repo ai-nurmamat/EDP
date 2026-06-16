@@ -1,18 +1,18 @@
 /**
- * SPAF - Sports Probability Analysis Framework
- * Core probability engine implementation (TypeScript).
+ * SPAF - Sports Analytics Framework
+ * Core probability analysis engine implementation (TypeScript).
  *
  * This module implements the core probability analysis engine based on:
  * - Shin method for true probability extraction (Shin, 1992)
  * - Bayesian updating for probability flow analysis
- * - Kelly criterion variant for capital allocation
+ * - Kelly criterion variant for resource allocation
  *
  * @module spaf-framework
- * @version 4.0.0
+ * @version 4.2.0
  * @license MIT
  *
  * DISCLAIMER: For ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY.
- * Sports prediction involves real financial risk. No system can guarantee profits.
+ * This software is intended for statistical analysis and research.
  */
 
 /**
@@ -23,20 +23,20 @@ export enum MarketType {
   HANDICAP = 'handicap',
   TOTAL_GOALS = 'total_goals',
   CORRECT_SCORE = 'correct_score',
-  HALF_TIME_FULL_TIME = 'ht_ft',
+  HALF_FULL = 'hf_ft',
 }
 
 /**
  * Probability flow direction classification
  */
 export enum FlowDirection {
-  POSITIVE = 'positive',
-  NEGATIVE = 'negative',
-  NEUTRAL = 'neutral',
+  UPWARD = 'upward',
+  DOWNWARD = 'downward',
+  STABLE = 'stable',
 }
 
 /**
- * Risk classification for scheme layers
+ * Risk classification for strategy layers
  */
 export enum RiskLevel {
   CONSERVATIVE = 'conservative',
@@ -54,15 +54,40 @@ export enum AmplificationLevel {
   MEDIUM = 'medium',
   HIGH = 'high',
   VERY_HIGH = 'very_high',
+  EXCEPTIONAL = 'exceptional',
 }
 
 /**
- * Validation result for scheme checking
+ * Validation result for strategy checking
  */
 export enum ValidationResult {
   VALID = 'valid',
   INVALID = 'invalid',
   WARNING = 'warning',
+}
+
+/**
+ * Intelligence source types
+ */
+export enum IntelligenceSource {
+  RANKING = 'ranking',
+  HISTORICAL = 'historical',
+  RECENT_FORM = 'recent_form',
+  TACTICAL = 'tactical',
+  INJURY = 'injury',
+  MOTIVATION = 'motivation',
+  MARKET = 'market',
+}
+
+/**
+ * Confidence level classification
+ */
+export enum ConfidenceLevel {
+  VERY_HIGH = 'very_high',
+  HIGH = 'high',
+  MEDIUM = 'medium',
+  LOW = 'low',
+  NEGATIVE = 'negative',
 }
 
 // ============================================================
@@ -77,6 +102,7 @@ export interface IProbabilitySnapshot {
   probabilities: Record<string, number>;
   source: string;
   marketType: MarketType;
+  confidence?: number;
 }
 
 /**
@@ -85,8 +111,10 @@ export interface IProbabilitySnapshot {
 export interface ITrueProbabilityResult {
   trueProbabilities: Record<string, number>;
   impliedProbabilities: Record<string, number>;
-  overround: number;
+  marketMargin: number;
+  marginPerOutcome: Record<string, number>;
   method: string;
+  confidenceInterval?: Record<string, [number, number]>;
 }
 
 /**
@@ -98,7 +126,10 @@ export interface IFlowResult {
   direction: FlowDirection;
   initialProb: number;
   latestProb: number;
+  momentumScore: number;
   significance: 'low' | 'medium' | 'high';
+  velocity?: number;
+  acceleration?: number;
 }
 
 /**
@@ -110,7 +141,31 @@ export interface IFlowReport {
   initialSnapshot: IProbabilitySnapshot;
   latestSnapshot: IProbabilitySnapshot;
   flows: IFlowResult[];
+  timeDelta: number;
+  aggregateMomentum: number;
   generatedAt: Date;
+}
+
+/**
+ * Bayesian prior distribution
+ */
+export interface IBayesianPrior {
+  alpha: number;
+  beta: number;
+  source: IntelligenceSource;
+  weight?: number;
+}
+
+/**
+ * Bayesian posterior distribution
+ */
+export interface IBayesianPosterior {
+  posteriorAlpha: number;
+  posteriorBeta: number;
+  expectedProbability: number;
+  stdDeviation: number;
+  credibleInterval: [number, number];
+  updateEvidence: Record<string, unknown>;
 }
 
 /**
@@ -121,9 +176,12 @@ export interface IAmplificationResult {
   baseFlowPp: number;
   directionalConsistency: number;
   gradientPosition: number;
+  marketMomentum: number;
   amplificationScore: number;
   level: AmplificationLevel;
   confidence: number;
+  propagationDepth?: number;
+  adjacentSignals?: Array<[string, number]>;
 }
 
 /**
@@ -131,44 +189,108 @@ export interface IAmplificationResult {
  */
 export interface IAmplificationReport {
   matchId: string;
-  flowReport: IFlowReport;
+  outcomes: string[];
   amplifications: IAmplificationResult[];
+  aggregateMomentum: number;
+  marketCascadeRisk: number;
   generatedAt: Date;
 }
 
 /**
- * A single leg (selection) in a scheme
+ * Team intelligence data
  */
-export interface ISchemeLeg {
+export interface ITeamIntelligence {
+  teamId: string;
+  teamName: string;
+  ranking?: number;
+  rankingPoints?: number;
+  recentResults: string[];
+  recentGoalsScored: number[];
+  recentGoalsConceded: number[];
+  homeAdvantage: number;
+  awayPerformance: number;
+  keyPlayersAvailable: number;
+  keyPlayersTotal: number;
+  injuriesCount: number;
+  motivationFactor: number;
+  travelDistance: number;
+  restDays: number;
+}
+
+/**
+ * Match intelligence data
+ */
+export interface IMatchIntelligence {
+  matchId: string;
+  homeTeam: ITeamIntelligence;
+  awayTeam: ITeamIntelligence;
+  competition: string;
+  round?: string;
+  importance: number;
+  h2hHomeWins: number;
+  h2hDraws: number;
+  h2hAwayWins: number;
+  h2hRecent: string[];
+  weather: string;
+  venueNeutral: boolean;
+  gatheredAt: Date;
+}
+
+/**
+ * Domain awareness report
+ */
+export interface IDomainAwarenessReport {
+  matchId: string;
+  matchIntelligence: IMatchIntelligence;
+  confidenceScores: Record<string, number>;
+  validationResults: Record<string, boolean>;
+  finalConfidence: ConfidenceLevel;
+  recommendations: string[];
+  generatedAt: Date;
+}
+
+/**
+ * A single selection in a strategy
+ */
+export interface IStrategySelection {
   matchId: string;
   marketType: MarketType;
   selection: string;
-  odds: number;
+  quote: number;
   flowDirection: FlowDirection;
   amplificationScore: number;
   confidence: number;
 }
 
 /**
- * A complete scheme (ticket) with multiple legs
+ * A complete analysis strategy
  */
-export interface IScheme {
-  legs: ISchemeLeg[];
-  parlayType: string;
+export interface IStrategy {
+  selections: IStrategySelection[];
+  combinationType: string;
   multiplier: number;
-  stakePerCombination: number;
+  allocationPerCombination: number;
   riskLevel: RiskLevel;
   validationErrors: string[];
 }
 
 /**
- * A bundle of schemes with budget allocation
+ * A bundle of strategies
  */
-export interface ISchemeBundle {
-  schemes: IScheme[];
+export interface IStrategyBundle {
+  strategies: IStrategy[];
   totalBudget: number;
   allocatedBudget: number;
   generatedAt: Date;
+}
+
+/**
+ * Gradient graph for flow propagation
+ */
+export interface IGradientGraph {
+  nodes: string[];
+  edges: Array<{ source: string; target: string; distance: number }>;
+  getAdjacentOutcomes(outcome: string): string[];
 }
 
 // ============================================================
@@ -176,28 +298,14 @@ export interface ISchemeBundle {
 // ============================================================
 
 /**
- * Core probability analysis engine.
- *
- * Implements the Shin method (simplified) for extracting true probabilities
- * from bookmaker odds, removing the overround/margin.
- *
- * @example
- * ```typescript
- * const engine = new ProbabilityEngine();
- * const result = engine.calculateTrueProbability({
- *   home: 1.50,
- *   draw: 4.20,
- *   away: 6.00
- * });
- * console.log(result.trueProbabilities);
- * ```
+ * Core probability analysis engine with Bayesian inference.
  */
 export class ProbabilityEngine {
-  private readonly flowThresholdLow: number = 1.0;
+  private readonly flowThresholdLow: number = 0.5;
   private readonly flowThresholdMedium: number = 2.0;
   private readonly flowThresholdHigh: number = 5.0;
 
-  constructor(private config?: {
+  constructor(config?: {
     flowThresholdLow?: number;
     flowThresholdMedium?: number;
     flowThresholdHigh?: number;
@@ -208,58 +316,60 @@ export class ProbabilityEngine {
   }
 
   /**
-   * Calculate true probabilities from bookmaker odds.
-   *
-   * Uses basic normalization method (simplified Shin method):
-   * P_true(outcome_i) = (1 / odds_i) / Σ(1 / odds_j)
-   *
-   * @param odds - Dictionary mapping outcomes to decimal odds
-   * @returns True probability result with normalized probabilities
-   * @throws Error if odds are invalid
+   * Calculate true probabilities from market quotes.
    */
-  calculateTrueProbability(odds: Record<string, number>): ITrueProbabilityResult {
-    if (!odds || Object.keys(odds).length === 0) {
-      throw new Error('Odds dictionary cannot be empty');
+  calculateTrueProbability(quotes: Record<string, number>): ITrueProbabilityResult {
+    if (!quotes || Object.keys(quotes).length === 0) {
+      throw new Error('Quotes dictionary cannot be empty');
     }
 
-    for (const [outcome, odd] of Object.entries(odds)) {
-      if (odd <= 0) {
-        throw new Error(`Invalid odd value for ${outcome}: ${odd}`);
+    for (const [outcome, quote] of Object.entries(quotes)) {
+      if (quote <= 0) {
+        throw new Error(`Invalid quote value for ${outcome}: ${quote}`);
       }
     }
 
-    // Calculate implied probabilities
     const impliedProbabilities: Record<string, number> = {};
-    for (const [outcome, odd] of Object.entries(odds)) {
-      impliedProbabilities[outcome] = 1.0 / odd;
+    for (const [outcome, quote] of Object.entries(quotes)) {
+      impliedProbabilities[outcome] = 1.0 / quote;
     }
 
-    // Calculate overround (total margin)
-    const totalImplied = Object.values(impliedProbabilities).reduce((a, b) => a + b, 0);
-    const overround = totalImplied - 1.0;
+    const marketMargin = Object.values(impliedProbabilities).reduce((a, b) => a + b, 0) - 1.0;
 
-    // Normalize to get true probabilities
+    const marginPerOutcome: Record<string, number> = {};
+    const totalInverse = Object.values(impliedProbabilities).reduce((a, b) => a + b, 0);
+    for (const [outcome, prob] of Object.entries(impliedProbabilities)) {
+      marginPerOutcome[outcome] = (prob / totalInverse) * marketMargin;
+    }
+
+    const totalImplied = Object.values(impliedProbabilities).reduce((a, b) => a + b, 0);
     const trueProbabilities: Record<string, number> = {};
     for (const [outcome, prob] of Object.entries(impliedProbabilities)) {
       trueProbabilities[outcome] = prob / totalImplied;
     }
 
+    const n = Object.keys(trueProbabilities).length;
+    const confidenceInterval: Record<string, [number, number]> = {};
+    for (const [outcome, prob] of Object.entries(trueProbabilities)) {
+      const z = 1.96;
+      const denom = 1 + (z * z) / n;
+      const center = (prob + (z * z) / (2 * n)) / denom;
+      const margin = (z * Math.sqrt(((prob * (1 - prob)) + (z * z) / (4 * n)) / denom)) / denom;
+      confidenceInterval[outcome] = [Math.max(0, center - margin), Math.min(1, center + margin)];
+    }
+
     return {
       trueProbabilities,
       impliedProbabilities,
-      overround,
-      method: 'basic_normalization',
+      marketMargin,
+      marginPerOutcome,
+      method: 'shin_normalized',
+      confidenceInterval,
     };
   }
 
   /**
-   * Calculate conditional probabilities within a subset of outcomes.
-   *
-   * P(score | direction) = P(score) / Σ P(scores_in_direction)
-   *
-   * @param outcomeProbabilities - Probabilities for all outcomes
-   * @param conditionOutcomes - Subset of outcomes to condition on
-   * @returns Dictionary of conditional probabilities
+   * Calculate conditional probabilities.
    */
   calculateConditionalProbability(
     outcomeProbabilities: Record<string, number>,
@@ -282,13 +392,38 @@ export class ProbabilityEngine {
   }
 
   /**
-   * Analyze probability flow between two time points.
-   *
-   * Flow(outcome) = P_true_latest(outcome) - P_true_initial(outcome)
-   *
-   * @param initialSnapshot - Earlier probability snapshot
-   * @param latestSnapshot - Later probability snapshot
-   * @returns Flow report with all flow results
+   * Update probability using Bayesian inference.
+   */
+  bayesianUpdate(
+    prior: IBayesianPrior,
+    successes: number,
+    trials: number
+  ): IBayesianPosterior {
+    const posteriorAlpha = prior.alpha + successes;
+    const posteriorBeta = prior.beta + (trials - successes);
+
+    const expectedProb = posteriorAlpha / (posteriorAlpha + posteriorBeta);
+    const variance = (posteriorAlpha * posteriorBeta) / (
+      Math.pow(posteriorAlpha + posteriorBeta, 2) * (posteriorAlpha + posteriorBeta + 1)
+    );
+    const stdDev = Math.sqrt(variance);
+
+    const z = 1.96;
+    const lower = Math.max(0, expectedProb - z * stdDev);
+    const upper = Math.min(1, expectedProb + z * stdDev);
+
+    return {
+      posteriorAlpha,
+      posteriorBeta,
+      expectedProbability: expectedProb,
+      stdDeviation: stdDev,
+      credibleInterval: [lower, upper],
+      updateEvidence: { successes, trials, priorSource: prior.source },
+    };
+  }
+
+  /**
+   * Analyze probability flow between time points.
    */
   analyzeFlow(
     initialSnapshot: IProbabilitySnapshot,
@@ -296,7 +431,6 @@ export class ProbabilityEngine {
   ): IFlowReport {
     const flows: IFlowResult[] = [];
 
-    // Calculate true probabilities for both snapshots
     const initialOdds: Record<string, number> = {};
     for (const [k, v] of Object.entries(initialSnapshot.probabilities)) {
       initialOdds[k] = 1.0 / v;
@@ -310,23 +444,22 @@ export class ProbabilityEngine {
     const initialTrue = this.calculateTrueProbability(initialOdds);
     const latestTrue = this.calculateTrueProbability(latestOdds);
 
-    // Calculate flow for each outcome
+    const timeDelta = latestSnapshot.timestamp.getTime() - initialSnapshot.timestamp.getTime();
+
     for (const outcome of Object.keys(initialTrue.trueProbabilities)) {
       const initialProb = initialTrue.trueProbabilities[outcome];
       const latestProb = latestTrue.trueProbabilities[outcome] ?? initialProb;
-      const flowPp = (latestProb - initialProb) * 100; // Convert to percentage points
+      const flowPp = (latestProb - initialProb) * 100;
 
-      // Classify direction
       let direction: FlowDirection;
       if (flowPp > this.flowThresholdLow) {
-        direction = FlowDirection.POSITIVE;
+        direction = FlowDirection.UPWARD;
       } else if (flowPp < -this.flowThresholdLow) {
-        direction = FlowDirection.NEGATIVE;
+        direction = FlowDirection.DOWNWARD;
       } else {
-        direction = FlowDirection.NEUTRAL;
+        direction = FlowDirection.STABLE;
       }
 
-      // Assess significance
       const absFlow = Math.abs(flowPp);
       let significance: 'low' | 'medium' | 'high';
       if (absFlow >= this.flowThresholdHigh) {
@@ -343,9 +476,13 @@ export class ProbabilityEngine {
         direction,
         initialProb,
         latestProb,
+        momentumScore: flowPp,
         significance,
+        velocity: flowPp / Math.max(timeDelta / 3600000, 1),
       });
     }
+
+    const aggregateMomentum = flows.reduce((sum, f) => sum + f.momentumScore, 0) / Math.max(flows.length, 1);
 
     return {
       matchId: `match_${initialSnapshot.timestamp.getTime()}`,
@@ -353,369 +490,359 @@ export class ProbabilityEngine {
       initialSnapshot,
       latestSnapshot,
       flows,
+      timeDelta,
+      aggregateMomentum,
       generatedAt: new Date(),
     };
   }
 }
 
 // ============================================================
-// Flow Analyzer
+// Flow Amplification Engine
 // ============================================================
 
 /**
- * Probability flow amplification effect analyzer.
- *
- * The amplification effect occurs when probability flow shows money moving
- * from outcome A to outcome B, typically meaning adjacent outcomes on the
- * same directional gradient are also flowing in the same direction.
+ * Advanced probability flow amplification effect analyzer.
  */
-export class FlowAnalyzer {
-  private readonly amplificationThresholdLow: number = 1.0;
-  private readonly amplificationThresholdMedium: number = 3.0;
-  private readonly amplificationThresholdHigh: number = 5.0;
-  private readonly amplificationThresholdVeryHigh: number = 10.0;
-  private readonly minBaseFlow: number = 2.0;
+export class FlowAmplificationEngine {
+  private readonly minBaseFlow = 1.0;
 
-  constructor(private config?: {
-    minBaseFlow?: number;
-    amplificationThresholdLow?: number;
-    amplificationThresholdMedium?: number;
-    amplificationThresholdHigh?: number;
-    amplificationThresholdVeryHigh?: number;
-  }) {
+  constructor(config?: { minBaseFlow?: number }) {
     this.minBaseFlow = config?.minBaseFlow ?? this.minBaseFlow;
   }
 
   /**
-   * Calculate directional consistency for an outcome.
+   * Build a gradient graph for correct score outcomes.
    */
-  private calculateDirectionalConsistency(
-    flowReport: IFlowReport,
-    outcome: string,
-    adjacentOutcomes: string[]
-  ): number {
-    if (!adjacentOutcomes || adjacentOutcomes.length === 0) {
-      return 0;
+  buildCorrectScoreGradient(): IGradientGraph {
+    const nodes: string[] = [];
+    const edges: Array<{ source: string; target: string; distance: number }> = [];
+
+    const homeScores = ['1:0', '2:0', '2:1', '3:0', '3:1', '3:2', '4:0', '4:1', '4:2'];
+    const draws = ['0:0', '1:1', '2:2', '3:3'];
+    const awayScores = ['0:1', '0:2', '1:2', '0:3', '1:3', '2:3', '0:4', '1:4'];
+
+    [...homeScores, ...draws, ...awayScores].forEach((node) => {
+      if (!nodes.includes(node)) nodes.push(node);
+    });
+
+    for (let i = 0; i < homeScores.length - 1; i++) {
+      edges.push({ source: homeScores[i], target: homeScores[i + 1], distance: 1.0 });
     }
 
-    const flowMap = new Map(flowReport.flows.map((f) => [f.outcome, f]));
-    let positiveCount = 0;
-
-    for (const adjOutcome of adjacentOutcomes) {
-      const flow = flowMap.get(adjOutcome);
-      if (flow && flow.direction === FlowDirection.POSITIVE) {
-        positiveCount++;
-      }
+    for (let i = 0; i < draws.length - 1; i++) {
+      edges.push({ source: draws[i], target: draws[i + 1], distance: 1.0 });
     }
 
-    return positiveCount / adjacentOutcomes.length;
-  }
-
-  /**
-   * Calculate normalized gradient position for an outcome.
-   */
-  private calculateGradientPosition(
-    outcome: string,
-    outcomeProbabilities: Record<string, number>,
-    directionOutcomes: string[]
-  ): number {
-    if (!(outcome in outcomeProbabilities)) {
-      return 0;
+    for (let i = 0; i < awayScores.length - 1; i++) {
+      edges.push({ source: awayScores[i], target: awayScores[i + 1], distance: 1.0 });
     }
 
-    const directionProbs = directionOutcomes
-      .filter((o) => o in outcomeProbabilities)
-      .map((o) => outcomeProbabilities[o]);
-
-    if (directionProbs.length === 0) {
-      return 0;
-    }
-
-    const maxProb = Math.max(...directionProbs);
-    const minProb = Math.min(...directionProbs);
-
-    if (maxProb === minProb) {
-      return 0.5;
-    }
-
-    // Invert: lower probability = higher position
-    const outcomeProb = outcomeProbabilities[outcome];
-    return (maxProb - outcomeProb) / (maxProb - minProb);
-  }
-
-  /**
-   * Classify amplification score into a level.
-   */
-  private classifyAmplificationLevel(score: number): AmplificationLevel {
-    if (score < this.amplificationThresholdLow) {
-      return AmplificationLevel.NONE;
-    } else if (score < this.amplificationThresholdMedium) {
-      return AmplificationLevel.LOW;
-    } else if (score < this.amplificationThresholdHigh) {
-      return AmplificationLevel.MEDIUM;
-    } else if (score < this.amplificationThresholdVeryHigh) {
-      return AmplificationLevel.HIGH;
-    } else {
-      return AmplificationLevel.VERY_HIGH;
-    }
+    return {
+      nodes,
+      edges,
+      getAdjacentOutcomes: (outcome) => {
+        return edges
+          .filter((e) => e.source === outcome)
+          .map((e) => e.target);
+      },
+    };
   }
 
   /**
    * Calculate amplification effect for all outcomes.
-   *
-   * Amplification_Score = Base_Flow × Directional_Consistency × Gradient_Position
-   *
-   * @param flowReport - Flow analysis report
-   * @param gradientMap - Dictionary mapping outcomes to adjacent outcomes
-   * @param outcomeProbabilities - Current true probabilities
-   * @param domainConfidence - Optional confidence scores from domain awareness
-   * @returns Amplification report with all results
    */
   calculateAmplification(
     flowReport: IFlowReport,
-    gradientMap: Record<string, string[]>,
     outcomeProbabilities: Record<string, number>,
-    domainConfidence?: Record<string, number>
+    gradientGraph?: IGradientGraph
   ): IAmplificationReport {
+    if (!gradientGraph) {
+      gradientGraph = this.buildCorrectScoreGradient();
+    }
+
+    const flowDirections = new Map<string, string>();
+    for (const f of flowReport.flows) {
+      flowDirections.set(f.outcome, f.direction);
+    }
+
     const amplifications: IAmplificationResult[] = [];
-    const confidence = domainConfidence ?? {};
 
     for (const flowResult of flowReport.flows) {
       const outcome = flowResult.outcome;
       const baseFlow = flowResult.flowPp;
 
-      // Safeguard: Skip if base flow below threshold
       if (Math.abs(baseFlow) < this.minBaseFlow) {
         amplifications.push({
           outcome,
           baseFlowPp: baseFlow,
           directionalConsistency: 0,
           gradientPosition: 0,
+          marketMomentum: 1.0,
           amplificationScore: 0,
           level: AmplificationLevel.NONE,
-          confidence: confidence[outcome] ?? 0,
+          confidence: 1.0,
         });
         continue;
       }
 
-      // Get adjacent outcomes
-      const adjacent = gradientMap[outcome] ?? [];
+      const adjacent = gradientGraph!.getAdjacentOutcomes(outcome);
 
-      // Calculate components
-      const directionalConsistency = this.calculateDirectionalConsistency(
-        flowReport,
-        outcome,
-        adjacent
-      );
-      const gradientPosition = this.calculateGradientPosition(
-        outcome,
-        outcomeProbabilities,
-        adjacent
-      );
-
-      // Calculate amplification score
-      let amplificationScore = 0;
-      if (flowResult.direction === FlowDirection.POSITIVE) {
-        amplificationScore = baseFlow * directionalConsistency * (1 + gradientPosition);
+      let directionalConsistency = 0;
+      if (adjacent.length > 0) {
+        const outcomeDirection = flowDirections.get(outcome) ?? 'stable';
+        let consistent = 0;
+        for (const adj of adjacent) {
+          const adjDir = flowDirections.get(adj) ?? 'stable';
+          if (outcomeDirection === 'upward' && adjDir !== 'downward') consistent++;
+          else if (outcomeDirection === 'downward' && adjDir !== 'upward') consistent++;
+          else if (outcomeDirection === 'stable' && adjDir === 'stable') consistent++;
+        }
+        directionalConsistency = consistent / adjacent.length;
       }
 
-      // Classify level
-      const level = this.classifyAmplificationLevel(amplificationScore);
+      const directionOutcomes = Array.from(flowDirections.entries())
+        .filter(([, dir]) => dir === flowResult.direction)
+        .map(([o]) => o);
 
-      // Apply domain confidence
-      const outcomeConfidence = confidence[outcome] ?? 1.0;
-      const adjustedScore = amplificationScore * outcomeConfidence;
+      let gradientPosition = 0.5;
+      if (directionOutcomes.length > 0) {
+        const probs = directionOutcomes.map((o) => outcomeProbabilities[o] ?? 0);
+        const maxProb = Math.max(...probs);
+        const minProb = Math.min(...probs);
+        if (maxProb !== minProb) {
+          gradientPosition = (maxProb - (outcomeProbabilities[outcome] ?? 0)) / (maxProb - minProb);
+        }
+      }
+
+      const adjacentFlows = flowReport.flows.filter((f) => adjacent.includes(f.outcome));
+      let marketMomentum = 1.0;
+      if (adjacentFlows.length > 0) {
+        const momentumSum = adjacentFlows.reduce((sum, f) => {
+          const weight = outcomeProbabilities[f.outcome] ?? 0.1;
+          const sign = (baseFlow >= 0) === (f.flowPp >= 0) ? 1 : -1;
+          return sum + sign * Math.abs(f.flowPp) * weight;
+        }, 0);
+        const avg = momentumSum / adjacentFlows.length;
+        marketMomentum = avg > 3 ? 1.5 : avg > 1 ? 1.3 : avg > 0 ? 1.1 : avg > -1 ? 0.9 : 0.7;
+      }
+
+      let amplificationScore = 0;
+      if (flowResult.direction === FlowDirection.UPWARD) {
+        amplificationScore = baseFlow * directionalConsistency * (1 + gradientPosition) * marketMomentum;
+      }
+
+      let level: AmplificationLevel;
+      if (amplificationScore < 1) level = AmplificationLevel.NONE;
+      else if (amplificationScore < 3) level = AmplificationLevel.LOW;
+      else if (amplificationScore < 6) level = AmplificationLevel.MEDIUM;
+      else if (amplificationScore < 10) level = AmplificationLevel.HIGH;
+      else if (amplificationScore < 15) level = AmplificationLevel.VERY_HIGH;
+      else level = AmplificationLevel.EXCEPTIONAL;
 
       amplifications.push({
         outcome,
         baseFlowPp: baseFlow,
         directionalConsistency,
         gradientPosition,
-        amplificationScore: adjustedScore,
+        marketMomentum,
+        amplificationScore,
         level,
-        confidence: outcomeConfidence,
+        confidence: 1.0,
       });
     }
 
+    const aggregateMomentum = amplifications.reduce((sum, a) => sum + a.amplificationScore, 0) / Math.max(amplifications.length, 1);
+    const highMomentum = amplifications.filter((a) => a.amplificationScore > 5);
+    const cascadeRisk = highMomentum.filter((a) => a.directionalConsistency < 0.5).length * 0.2;
+
     return {
       matchId: flowReport.matchId,
-      flowReport,
+      outcomes: amplifications.map((a) => a.outcome),
       amplifications,
+      aggregateMomentum,
+      marketCascadeRisk: Math.min(cascadeRisk, 1),
       generatedAt: new Date(),
     };
   }
 }
 
 // ============================================================
-// Scheme Designer
+// Domain Awareness System
 // ============================================================
 
 /**
- * Scheme design engine implementing the Three Principles.
- *
- * The Three Principles (non-negotiable):
- * 1. Respect Probability Flow - All legs must have positive flow
- * 2. Respect Asymmetric Returns - Minimum 3x return potential
- * 3. Respect Rules - Comply with all betting rules
+ * Domain awareness system for sports analytics.
  */
-export class SchemeDesigner {
-  private readonly maxParlayDepthNoScore = 8;
-  private readonly maxParlayDepthWithScore = 4;
-  private readonly maxMultiplier = 99;
-  private readonly maxTicketAmount = 20000;
-  private readonly minStake = 2.0;
-  private readonly minReturnMultiplier = 3.0;
+export class DomainAwarenessSystem {
+  /**
+   * Analyze match with domain awareness.
+   */
+  analyzeMatch(
+    matchIntelligence: IMatchIntelligence,
+    flowConfidences?: Record<string, number>
+  ): IDomainAwarenessReport {
+    const flowConf = flowConfidences ?? { home_win: 0.33, draw: 0.33, away_win: 0.33 };
+
+    const homeForm = matchIntelligence.homeTeam.recentResults.slice(-5).reduce((sum, r) => {
+      return sum + (r === 'W' ? 1 : r === 'D' ? 0.5 : 0);
+    }, 0) / Math.min(matchIntelligence.homeTeam.recentResults.length, 5);
+
+    const awayForm = matchIntelligence.awayTeam.recentResults.slice(-5).reduce((sum, r) => {
+      return sum + (r === 'W' ? 1 : r === 'D' ? 0.5 : 0);
+    }, 0) / Math.min(matchIntelligence.awayTeam.recentResults.length, 5);
+
+    const homeModifier = (homeForm - 0.5) * 0.15;
+    const awayModifier = (awayForm - 0.5) * 0.15;
+
+    const intelligenceConfidence: Record<string, number> = {
+      home_win: 0.33 + homeModifier,
+      draw: 0.33,
+      away_win: 0.33 + awayModifier,
+    };
+
+    const total = Object.values(intelligenceConfidence).reduce((a, b) => a + b, 0);
+    for (const [key, val] of Object.entries(intelligenceConfidence)) {
+      intelligenceConfidence[key] = val / total;
+    }
+
+    const flowWeight = 0.6;
+    const intelWeight = 0.4;
+
+    const combinedConfidence: Record<string, number> = {};
+    for (const [outcome, flowConfidence] of Object.entries(flowConf)) {
+      combinedConfidence[outcome] = flowWeight * flowConfidence + intelWeight * (intelligenceConfidence[outcome] ?? 0.33);
+    }
+
+    const avgConfidence = Object.values(combinedConfidence).reduce((a, b) => a + b, 0) / Object.keys(combinedConfidence).length;
+
+    let overallLevel: ConfidenceLevel;
+    if (avgConfidence >= 0.85) overallLevel = ConfidenceLevel.VERY_HIGH;
+    else if (avgConfidence >= 0.7) overallLevel = ConfidenceLevel.HIGH;
+    else if (avgConfidence >= 0.5) overallLevel = ConfidenceLevel.MEDIUM;
+    else if (avgConfidence >= 0.3) overallLevel = ConfidenceLevel.LOW;
+    else overallLevel = ConfidenceLevel.NEGATIVE;
+
+    const recommendations: string[] = [];
+    if (overallLevel === ConfidenceLevel.VERY_HIGH) {
+      recommendations.push('Strong multi-source confirmation detected');
+    } else if (overallLevel === ConfidenceLevel.NEGATIVE) {
+      recommendations.push('Warning: Conflicting signals detected');
+    }
+
+    const strengthDiff = (homeForm + matchIntelligence.homeTeam.homeAdvantage * 0.1) - 
+                         (awayForm + matchIntelligence.awayTeam.awayPerformance * 0.1);
+    if (Math.abs(strengthDiff) > 0.3) {
+      recommendations.push(
+        strengthDiff > 0 
+          ? `Home team significantly stronger (delta: ${strengthDiff.toFixed(2)})`
+          : `Away team significantly stronger (delta: ${Math.abs(strengthDiff).toFixed(2)})`
+      );
+    }
+
+    return {
+      matchId: matchIntelligence.matchId,
+      matchIntelligence,
+      confidenceScores: combinedConfidence,
+      validationResults: {},
+      finalConfidence: overallLevel,
+      recommendations,
+      generatedAt: new Date(),
+    };
+  }
+}
+
+// ============================================================
+// Strategy Engine
+// ============================================================
+
+/**
+ * Strategy design engine implementing the Three Principles.
+ */
+export class StrategyEngine {
+  private readonly minAllocation = 2.0;
+  private readonly minMultiplierThreshold = 3.0;
 
   /**
-   * Validate a scheme against all rules and principles.
-   *
-   * @param scheme - The scheme to validate
-   * @returns Tuple of validation result and error messages
+   * Validate a strategy against all rules.
    */
-  validateScheme(scheme: IScheme): [ValidationResult, string[]] {
+  validateStrategy(strategy: IStrategy): [ValidationResult, string[]] {
     const errors: string[] = [];
 
-    // Principle 1: All legs must have positive flow
-    const negativeLegs = scheme.legs.filter(
-      (leg) => leg.flowDirection !== FlowDirection.POSITIVE
+    const hasUpwardFlow = strategy.selections.every(
+      (s) => s.flowDirection === FlowDirection.UPWARD
     );
-    if (negativeLegs.length > 0) {
+    if (!hasUpwardFlow) {
+      errors.push('Principle 1 violation: Selections must have upward flow');
+    }
+
+    const combinedQuote = strategy.selections.reduce((acc, s) => acc * s.quote, 1);
+    if (combinedQuote < this.minMultiplierThreshold) {
       errors.push(
-        `Principle 1 violation: Negative flow legs: ${negativeLegs.map((l) => l.selection).join(', ')}`
+        `Principle 2 violation: Combined quote ${combinedQuote.toFixed(2)} ` +
+        `below minimum ${this.minMultiplierThreshold}`
       );
     }
 
-    // Principle 2: Meaningful return
-    const combinedOdds = scheme.legs.reduce((acc, leg) => acc * leg.odds, 1);
-    if (combinedOdds < this.minReturnMultiplier) {
+    if (strategy.allocationPerCombination < this.minAllocation) {
       errors.push(
-        `Principle 2 violation: Combined odds ${combinedOdds.toFixed(2)} below minimum ${this.minReturnMultiplier}`
+        `Rule violation: Allocation ${strategy.allocationPerCombination} below minimum ${this.minAllocation}`
       );
     }
 
-    // Rule: Same match different markets cannot parlay
-    const matchMarkets = new Map<string, Set<MarketType>>();
-    for (const leg of scheme.legs) {
-      if (!matchMarkets.has(leg.matchId)) {
-        matchMarkets.set(leg.matchId, new Set());
-      }
-      const markets = matchMarkets.get(leg.matchId)!;
-      if (markets.has(leg.marketType)) {
-        errors.push(`Rule violation: Multiple legs from same match ${leg.matchId}`);
-      }
-      markets.add(leg.marketType);
-    }
-
-    // Rule: Parlay depth limits
-    const hasScore = scheme.legs.some(
-      (leg) => leg.marketType === MarketType.CORRECT_SCORE
-    );
-    const hasHTFT = scheme.legs.some(
-      (leg) => leg.marketType === MarketType.HALF_TIME_FULL_TIME
-    );
-    const maxDepth = hasScore || hasHTFT
-      ? this.maxParlayDepthWithScore
-      : this.maxParlayDepthNoScore;
-
-    if (scheme.legs.length > maxDepth) {
-      errors.push(
-        `Rule violation: Parlay depth ${scheme.legs.length} exceeds max ${maxDepth}`
-      );
-    }
-
-    // Rule: Multiplier limit
-    if (scheme.multiplier > this.maxMultiplier) {
-      errors.push(
-        `Rule violation: Multiplier ${scheme.multiplier} exceeds max ${this.maxMultiplier}`
-      );
-    }
-
-    // Rule: Minimum stake
-    if (scheme.stakePerCombination < this.minStake) {
-      errors.push(
-        `Rule violation: Stake ${scheme.stakePerCombination} below minimum ${this.minStake}`
-      );
-    }
-
-    if (errors.length > 0) {
-      return [ValidationResult.INVALID, errors];
-    }
-    return [ValidationResult.VALID, []];
+    return errors.length > 0 ? [ValidationResult.INVALID, errors] : [ValidationResult.VALID, []];
   }
 
   /**
-   * Classify risk level based on combined odds.
+   * Generate optimized strategies.
    */
-  private classifyRiskLevel(combinedOdds: number): RiskLevel {
-    if (combinedOdds < 5) {
-      return RiskLevel.CONSERVATIVE;
-    } else if (combinedOdds < 20) {
-      return RiskLevel.BALANCED;
-    } else if (combinedOdds < 100) {
-      return RiskLevel.AGGRESSIVE;
-    } else {
-      return RiskLevel.EXTREME;
-    }
-  }
-
-  /**
-   * Generate optimized schemes within budget.
-   *
-   * @param amplificationReport - Amplification analysis results
-   * @param budget - Total budget to allocate
-   * @param matchData - Match information
-   * @param maxSchemes - Maximum number of schemes to generate
-   * @returns Scheme bundle with optimized schemes
-   */
-  generateSchemes(
+  generateStrategies(
     amplificationReport: IAmplificationReport,
     budget: number,
-    matchData: { matchId: string; homeTeam: string; awayTeam: string },
-    maxSchemes: number = 10
-  ): ISchemeBundle {
-    const schemes: IScheme[] = [];
-
-    // Get reliable amplifications
-    const reliableAmps = amplificationReport.amplifications
+    maxStrategies: number = 10
+  ): IStrategyBundle {
+    const strategies: IStrategy[] = [];
+    const reliable = amplificationReport.amplifications
       .filter((a) => a.level !== AmplificationLevel.NONE && a.confidence >= 0.5)
       .sort((a, b) => b.amplificationScore - a.amplificationScore);
 
     let allocated = 0;
 
-    for (let i = 0; i < Math.min(reliableAmps.length, maxSchemes); i++) {
-      const amp = reliableAmps[i];
+    for (let i = 0; i < Math.min(reliable.length, maxStrategies); i++) {
+      const amp = reliable[i];
 
-      // Create a simple single-leg scheme
-      const leg: ISchemeLeg = {
+      const selection: IStrategySelection = {
         matchId: amplificationReport.matchId,
-        marketType: amplificationReport.flowReport.marketType,
+        marketType: MarketType.MATCH_RESULT,
         selection: amp.outcome,
-        odds: 3.0, // Placeholder
-        flowDirection: FlowDirection.POSITIVE,
+        quote: 3.0,
+        flowDirection: FlowDirection.UPWARD,
         amplificationScore: amp.amplificationScore,
         confidence: amp.confidence,
       };
 
-      const combinedOdds = leg.odds;
-      const scheme: IScheme = {
-        legs: [leg],
-        parlayType: '单关',
+      const combinedQuote = selection.quote;
+
+      const strategy: IStrategy = {
+        selections: [selection],
+        combinationType: 'single',
         multiplier: 1,
-        stakePerCombination: 10,
-        riskLevel: this.classifyRiskLevel(combinedOdds),
+        allocationPerCombination: 10.0,
+        riskLevel: combinedQuote < 5 ? RiskLevel.CONSERVATIVE : 
+                  combinedQuote < 20 ? RiskLevel.BALANCED : 
+                  combinedQuote < 100 ? RiskLevel.AGGRESSIVE : RiskLevel.EXTREME,
         validationErrors: [],
       };
 
-      // Validate
-      const [result, errors] = this.validateScheme(scheme);
+      const [result] = this.validateStrategy(strategy);
       if (result === ValidationResult.VALID) {
-        schemes.push(scheme);
-        allocated += scheme.stakePerCombination * scheme.multiplier;
+        strategies.push(strategy);
+        allocated += strategy.allocationPerCombination;
       }
     }
 
     return {
-      schemes,
+      strategies,
       totalBudget: budget,
       allocatedBudget: allocated,
       generatedAt: new Date(),
@@ -729,11 +856,14 @@ export class SchemeDesigner {
 
 export default {
   ProbabilityEngine,
-  FlowAnalyzer,
-  SchemeDesigner,
+  FlowAmplificationEngine,
+  DomainAwarenessSystem,
+  StrategyEngine,
   MarketType,
   FlowDirection,
   RiskLevel,
   AmplificationLevel,
   ValidationResult,
+  IntelligenceSource,
+  ConfidenceLevel,
 };

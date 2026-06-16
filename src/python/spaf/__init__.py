@@ -56,7 +56,16 @@ from .domain_awareness import (
     DomainAwarenessSystem,
 )
 
-__version__ = "4.1.0"
+from .strategy_engine import (
+    RiskLevel,
+    ValidationResult,
+    StrategySelection,
+    Strategy,
+    StrategyBundle,
+    StrategyEngine,
+)
+
+__version__ = "4.2.0"
 __author__ = "SPAF Team"
 __license__ = "MIT"
 
@@ -88,4 +97,11 @@ __all__ = [
     "MatchIntelligence",
     "DomainAwarenessReport",
     "DomainAwarenessSystem",
+    # Strategy Engine
+    "RiskLevel",
+    "ValidationResult",
+    "StrategySelection",
+    "Strategy",
+    "StrategyBundle",
+    "StrategyEngine",
 ]

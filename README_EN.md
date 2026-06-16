@@ -1,491 +1,233 @@
-# 🎯 SPAF - Sports Probability Analysis Framework
+# SPAF - Sports Analytics Framework
 
-> **Domain-Aware, Situational-Awareness-Driven, Probability-Flow-Based Sports Prediction Optimization System**
->
-> **基于态势感知、概率流向与贝叶斯更新的竞彩方案优化系统**
+## ⚠️ ACADEMIC RESEARCH PURPOSES ONLY
 
-![Version](https://img.shields.io/badge/Version-4.0-blue)
-![Status](https://img.shields.io/badge/Status-Production--Ready-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0%2B-blue)
+**IMPORTANT NOTICE**: This framework is intended **exclusively for academic research and educational purposes**. It provides statistical analysis tools for studying sports event probabilities and market dynamics.
 
----
-
-## ⚠️ Risk Disclaimer
-
-> **This framework is for ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY.**
->
-> - Sports prediction involves **real financial risk**. Historical probability patterns do **NOT guarantee** future results.
-> - All sports prediction activities have **negative expected value (EV)** by design (bookmaker margin). No system can mathematically overcome this fact.
-> - **NEVER wager money you cannot afford to lose.** Sports prediction should be treated as entertainment, not investment.
-> - The author makes **NO WARRANTIES** regarding the accuracy, completeness, or profitability of any analysis produced by this framework.
-> - Users bear full responsibility for their own decisions and must comply with **local laws and regulations**.
-> - **Gambling Help Hotline**: If you or someone you know has a gambling problem, seek professional help immediately.
+### Legal Disclaimer
+- This software is **not** designed for, nor should it be used for, any form of financial speculation or gambling activities.
+- Users must comply with all applicable laws and regulations in their jurisdiction.
+- The authors and contributors assume no liability for any misuse of this software.
 
 ---
 
 ## Table of Contents
 
-- [Architecture Overview](#architecture-overview)
-- [Design Philosophy](#design-philosophy-ooda-loop--loop-engineering--dag-execution)
-- [Data Acquisition Layer](#data-acquisition-layer)
-- [Probability Analysis Engine](#probability-analysis-engine)
-- [Probability Flow Amplification Effect](#probability-flow-amplification-effect)
-- [Domain Awareness System](#domain-awareness-system)
-- [Scheme Design Engine](#scheme-design-engine)
-- [Rule Compliance Layer](#rule-compliance-layer)
-- [Output Generation](#output-generation)
-- [Academic Foundation](#academic-foundation)
-- [Quick Start](#quick-start)
-- [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
+1. [Introduction](#introduction)
+2. [Core Innovation Features](#core-innovation-features)
+3. [Technical Architecture](#technical-architecture)
+4. [Installation](#installation)
+5. [Quick Start](#quick-start)
+6. [Documentation](#documentation)
+7. [API Reference](#api-reference)
+8. [Development](#development)
+9. [Contributing](#contributing)
+10. [License](#license)
+11. [Academic References](#academic-references)
 
 ---
 
-## Architecture Overview
+## Introduction
+
+SPAF (Sports Analytics Framework) is a comprehensive, domain-aware, situational-awareness-driven probability analysis system designed for advanced sports analytics research. The framework implements cutting-edge statistical methods and machine learning techniques to analyze sports event probabilities, market dynamics, and information flow patterns.
+
+### Key Features
+
+- **True Probability Calculation**: Extract unbiased probabilities from market quotes using the Shin method
+- **Probability Flow Analysis**: Track temporal probability changes with momentum scoring
+- **Flow Amplification Effect**: Detect and quantify cascading information propagation effects
+- **Domain Awareness System**: Integrate multi-source intelligence for comprehensive situational assessment
+- **Strategy Engine**: Generate optimized analysis strategies based on validated principles
+
+---
+
+## Core Innovation Features
+
+### 1. Domain-Aware System
+
+A comprehensive intelligence fusion system that integrates multiple data sources:
+
+- **Multi-source Intelligence Integration**: Combine rankings, historical data, recent form, tactical analysis, injury reports, motivation factors, and market signals
+- **Cross-validation Mechanism**: Validate information consistency across different sources
+- **Confidence Quantification**: Assign confidence levels to each data point based on reliability
+- **Situational Assessment**: Generate holistic match analysis incorporating all available intelligence
+
+### 2. Probability Flow Analysis
+
+An advanced temporal analysis system for tracking probability dynamics:
+
+- **Basic Flow Calculation**: Measure probability changes between time points (basis points)
+- **Momentum Scoring**: Evaluate the strength and direction of probability movement
+- **Velocity & Acceleration**: Assess the rate and acceleration of probability changes
+- **Aggregate Momentum**: Calculate overall market sentiment from individual outcome flows
+
+### 3. Flow Amplification Effect
+
+A novel mechanism for detecting cascading information propagation:
+
+- **Gradient Graph Propagation**: Build and traverse outcome relationship graphs
+- **Directional Consistency**: Evaluate signal alignment across adjacent outcomes
+- **Cascade Risk Assessment**: Quantify the risk of market-wide information cascades
+- **Six-Level Amplification Classification**: From NONE to EXCEPTIONAL signal strength
+
+---
+
+## Technical Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Output Generation Layer                   │
-│  Scheme Summary → Narrative Generation → Quality Checklist  │
-├─────────────────────────────────────────────────────────────┤
-│                    Scheme Design Engine                      │
-│  Risk Stratification → Parlay Construction → Budget Alloc   │
-├─────────────────────────────────────────────────────────────┤
-│                    Flow Amplification Engine                 │
-│  Base Flow → Directional Consistency → Gradient Position    │
-├─────────────────────────────────────────────────────────────┤
-│                    Domain Awareness System                   │
-│  Match Intelligence ← Probability Flow ← Market Consensus   │
-├─────────────────────────────────────────────────────────────┤
-│                    Probability Analysis Engine               │
-│  True Probability → Conditional Prob → Flow Analysis        │
-├─────────────────────────────────────────────────────────────┤
-│                    Data Acquisition Layer                    │
-│  Visual Extraction ← Web Scraping ← API Integration         │
+│                    Domain Awareness System                  │
+│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌──────────────────┐   │
+│  │Ranking  │ │Form Data│ │Injury   │ │H2H Analysis     │   │
+│  │Analysis │ │Analysis │ │Reports  │ │Tactical Scouting│   │
+│  └────┬────┘ └────┬────┘ └────┬────┘ └────────┬─────────┘   │
+└───────┼───────────┼───────────┼────────────────┼─────────────┘
+        │           │           │                │
+        ▼           ▼           ▼                ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Probability Engine                        │
+│  ┌─────────────────────┐  ┌─────────────────────────────┐   │
+│  │  True Probability   │  │      Bayesian Inference     │   │
+│  │  Calculation (Shin) │  │  Beta-Binomial Conjugate    │   │
+│  └──────────┬──────────┘  └──────────────┬──────────────┘   │
+│             │                            │                  │
+│             ▼                            ▼                  │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │            Probability Flow Analysis                │    │
+│  │  Momentum | Velocity | Acceleration | Significance │    │
+│  └───────────────────────────┬─────────────────────────┘    │
+└──────────────────────────────┼───────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│               Flow Amplification Engine                     │
+│  ┌─────────────────────┐  ┌─────────────────────────────┐   │
+│  │  Gradient Graph     │  │     Cascade Risk Model      │   │
+│  │  Construction       │  │  6-Level Classification     │   │
+│  └─────────────────────┘  └─────────────────────────────┘   │
+└──────────────────────────────┬───────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   Strategy Engine                           │
+│  ┌─────────────────────┐  ┌─────────────────────────────┐   │
+│  │   Validation Rules  │  │    Risk-Adjusted Design    │   │
+│  │   (3 Principles)    │  │  MPT + Kelly Optimization   │   │
+│  └─────────────────────┘  └─────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-The system employs a **Directed Acyclic Graph (DAG) pipeline architecture**, where each layer produces structured data for downstream consumption. Core design principles derive from three methodologies:
-
-1. **OODA Loop** (Boyd, 1987) — Observe-Orient-Decide-Act, with iterative refinement embedded in each layer
-2. **Loop Engineering** — Continuous signal quality calibration through feedback loops
-3. **DAG Execution** — Stateful graph execution model similar to LangGraph, with standardized protocols between nodes
-
-### Design Principles (Non-Negotiable)
-
-| Principle | Description |
-|-----------|-------------|
-| **Data Agnostic** | Input sources abstracted behind unified interfaces; pipeline can connect to any probability data source |
-| **Implementation Agnostic** | Probability extraction can use any vision recognition, OCR engine, or manual input |
-| **Rule Aware** | All output schemes must pass rule validation before presentation |
-| **Domain First** | Situational awareness guides but never overrides probability signals |
-
 ---
 
-## Design Philosophy: OODA Loop × Loop Engineering × DAG Execution
+## Installation
 
-### OODA Loop Mapping in Sports Analysis
+### Python
 
-The OODA Loop was developed by U.S. Air Force Colonel John Boyd (Boyd, 1987, "A Discourse on Winning and Losing"), originally for military decision-making. Its core is a **rapid perceive-orient-decide-act** closed loop.
-
-```
-┌──────────────────────────────────────────────────────────┐
-│  Observe                                                  │
-│  ├─ Probability snapshots (initial vs latest)            │
-│  ├─ Match intelligence (rankings, form, injuries, tactics)│
-│  └─ Market signals (volume distribution, expert consensus)│
-│                                                          │
-│  Orient                                                   │
-│  ├─ True probability calculation (margin removal)        │
-│  ├─ Probability flow calculation (initial→latest delta)  │
-│  ├─ Amplification scoring (directional consistency ×     │
-│  │                          gradient position)           │
-│  └─ Cross-validation (probability vs intelligence vs     │
-│                       market consensus)                  │
-│                                                          │
-│  Decide                                                   │
-│  ├─ Three Principles validation (each leg must pass)     │
-│  ├─ Scheme construction (stratification + parlay +       │
-│  │                       budget allocation)              │
-│  └─ Mixed parlay compliance check                        │
-│                                                          │
-│  Act                                                      │
-│  ├─ Generate narrative                                   │
-│  ├─ Quality checklist verification                       │
-│  └─ Collect feedback → Enter next OODA cycle            │
-└──────────────────────────────────────────────────────────┘
+```bash
+pip install spaf-framework
 ```
 
-**Termination Conditions**:
-- All available data processed → Output final scheme
-- User budget fully allocated → Output final scheme
-- Dead loop detection (same data iterated without new signals) → Force stop and report
+### TypeScript/JavaScript
 
----
-
-## Data Acquisition Layer
-
-### Visual Information Extraction
-
-Platform screenshots contain structured tabular data (probability history, score matrices, handicap lines). The extraction pipeline follows a **three-stage strategy**:
-
-1. **Type Classification** — Determine image content type (probability table, score matrix, handicap history, etc.)
-2. **Structured Extraction** — Extract numerical data while preserving temporal context (initial vs latest)
-3. **Validation** — Cross-check extracted data consistency (e.g., probability monotonicity, field completeness)
-
-> **Framework Note**: The extraction backend is pluggable. Any multimodal recognition solution, OCR engine, or manual entry system can serve as an implementation.
-
-### Unified Data Schema
-
-All data sources produce data artifacts conforming to a unified schema:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| match_id | string | Unique match identifier |
-| teams | object | { home, away } team names |
-| timestamp | datetime | Data collection timestamp |
-| markets.1X2 | time series | Win/Draw/Loss true probabilities (initial→latest) |
-| markets.handicap | time series | Handicap line probabilities (e.g., -1, -2, +2) |
-| markets.total_goals | time series | Total goals probabilities (0, 1, 2, ..., 7+) |
-| markets.correct_score | time series | Correct score probabilities (all score combinations) |
-
----
-
-## Probability Analysis Engine
-
-### True Probability
-
-Platform probabilities embed bookmaker margin (overround). To extract **true probability**, normalization is required:
-
-```python
-P_true(outcome_i) = (1 / odds_i) / Σ(1 / odds_j) × 100%
+```bash
+npm install spaf-framework
 ```
-
-**Mathematical Basis**: If a market offers probability `o_i` for outcome `i`, the implied probability is `1/o_i`. Since `Σ(1/o_j) > 1` (i.e., margin), dividing by the sum yields a normalized probability distribution where all outcomes sum to 100%.
-
-**Academic Support**: This normalization is equivalent to a simplified variant of the **Shin method** (Shin, 1992).
-
-### Conditional Probability
-
-For correct score markets, calculate **directional conditional probability**:
-
-```python
-P(score | direction) = P_true(score) / Σ P_true(scores_in_direction)
-```
-
-**Question Answered**: "Given the home team wins, what is the probability of each specific score?"
-
-### Probability Flow
-
-Probability flow is the core concept of this framework. It measures the **change** in market true probability distribution over time:
-
-```python
-Flow(outcome) = P_true_latest(outcome) - P_true_initial(outcome)
-```
-
-| Flow | Meaning |
-|------|---------|
-| **Positive (inflow)** | Market increasingly favors this outcome |
-| **Negative (outflow)** | Market moving away from this outcome |
-| **Zero (stable)** | No significant information change |
-
-**Core Insight**: Positive flow indicates informed money (or information) is accumulating toward this outcome. Magnitude (in percentage points, pp) reflects confidence strength.
-
----
-
-## Probability Flow Amplification Effect
-
-> ⚠️ **This chapter describes the framework's most powerful analytical tool, and also the most risky. Amplification effect is a probability analysis amplifier—it can amplify correct signals, but also incorrect ones. Must be used in conjunction with the Domain Awareness System.**
-
-### Definition of Amplification Effect
-
-When probability flow shows money moving from outcome A to outcome B, it typically means adjacent outcomes on the same directional gradient **are also flowing in the same direction**. This is the **Amplification Effect**.
-
-### Amplification Score Formula
-
-```python
-Amplification_Score(outcome) =
-    Base_Flow(outcome) × Directional_Consistency × Gradient_Position
-```
-
-| Variable | Meaning |
-|----------|---------|
-| `Base_Flow` | Base probability flow for this outcome (pp) |
-| `Directional_Consistency` | Proportion of adjacent outcomes in same direction with positive flow (0~1) |
-| `Gradient_Position` | Position in probability gradient (higher probability = greater amplification potential) |
-
-### Amplification Effect Safeguards
-
-**Safeguard 1: Domain Awareness Validation**
-
-Amplification effect must be cross-validated with match intelligence:
-
-| Intelligence Assessment | Flow Direction | Amplification Verdict |
-|------------------------|----------------|----------------------|
-| Strong team + High offensive efficiency | Positive flow toward big win | **Confirmed** ✅ |
-| Strong team + Conservative style | Positive flow toward big win | **Questionable** ⚠️ |
-| Weak team + Defensive vulnerabilities | Positive flow toward big win | **Enhanced** ✅✅ |
-| No clear intelligence | Positive flow toward big win | **Possible** ✅ (downweighted) |
-
-**Safeguard 2: Base Flow Threshold**
-
-Only enable amplification effect when base flow (Base_Flow) ≥ threshold (recommended 2pp).
-
-**Safeguard 3: Kelly Criterion Variant**
-
-Kelly's core idea—**adjust investment proportion based on signal strength**—is borrowed for scheme design.
-
----
-
-## Domain Awareness System
-
-### Definition of Situational Awareness
-
-**Domain Awareness** = Complete coverage of all available information sources.
-
-**Situational Awareness** = Real-time understanding of current match context.
-
-### Match Intelligence Integration
-
-| Intelligence Dimension | Data Points | Weight |
-|-----------------------|-------------|--------|
-| **Strength Indicators** | FIFA ranking, squad value, recent form | High |
-| **Tactical Context** | Offensive/defensive style, goals per game, clean sheets | High |
-| **Motivational Factors** | Qualification situation, pressure, squad rotation | Medium |
-| **Market Consensus** | Volume distribution, expert prediction consistency | Medium |
-
-### Signal Validation Matrix
-
-Each probability flow signal must be cross-validated with match intelligence:
-
-```python
-Confidence = Flow_Strength × Intelligence_Support × Market_Consensus
-```
-
-| Confidence | Condition | Action |
-|------------|-----------|--------|
-| **High** | All three dimensions aligned | Full weight in scheme |
-| **Medium** | Two dimensions aligned | Downweighted inclusion |
-| **Low** | Only one dimension supporting | Only include in high-probability small-amount combinations |
-| **Negative** | Dimensional conflict | Exclude or use as contrarian signal |
-
----
-
-## Scheme Design Engine
-
-### Three Principles (Non-Negotiable)
-
-All schemes **must** satisfy the following three principles. Any scheme violating any principle **must not be output**:
-
-| # | Principle | Implementation Rules |
-|---|-----------|---------------------|
-| 1 | **Respect Probability Flow** | Each leg of each ticket must have positive probability flow. Zero-flow legs acceptable only when no positive alternative exists. **Negative-flow legs strictly prohibited.** |
-| 2 | **Respect Asymmetric Returns** | Each ticket must provide meaningful return potential. Minimum target: 3x return. Conservative "safe ticket" budget not exceeding 20% of total budget. |
-| 3 | **Respect Rules** | Same match different markets cannot parlay. Correct score max 4-fold. Each ticket max 99x multiplier. Each ticket max ¥20,000. |
-
-**Priority of Three Principles**: Principle 1 > Principle 3 > Principle 2.
-
-### Mixed Parlay Complete Rules
-
-#### Basic Rules
-
-| Rule | Description |
-|------|-------------|
-| **Different matches can mix** | Different markets from different matches **can** parlay |
-| **Same match cannot mix** | Different markets from same match **cannot** parlay |
-| **Minimum stake** | Each combination minimum ¥2 |
-| **Single ticket multiplier cap** | Single ticket maximum 99x |
-| **Single ticket amount cap** | Single ticket maximum ¥20,000 |
-
-#### Parlay Depth Limits
-
-| Contains Correct Score/Half-Time | Max Parlay Depth |
-|----------------------------------|-----------------|
-| No | Max 8-fold |
-| Contains Correct Score | Max 4-fold |
-| Contains Half-Time | Max 4-fold |
-| Contains Total Goals | Max 6-fold |
-
----
-
-## Rule Compliance Layer
-
-### Validation Pipeline
-
-Each generated ticket must pass the following validation pipeline:
-
-```
-For each ticket:
-  ✓ 1. No legs from same match different markets
-  ✓ 2. Contains correct score/half-time → total parlay depth ≤ 4
-  ✓ 3. Each stake × combinations ≤ ¥50 (single physical ticket limit)
-  ✓ 4. Each stake ≥ ¥2
-  ✓ 5. Multiplier ≤ 99
-  ✓ 6. All legs have positive probability flow
-  ✓ 7. Ticket provides meaningful upside (non-anchor tickets ≥ 3x)
-```
-
----
-
-## Output Generation
-
-### Multi-Layer Output
-
-| Layer | Audience | Content |
-|-------|----------|---------|
-| **Analysis Report** | Analysts | Complete probability flow table, signal strength, intelligence cross-validation |
-| **Scheme Summary** | Users | Ticket list, cost, expected return, coverage map |
-| **Narrative** | Operators | Concise verbal instructions |
-
-### Quality Checklist
-
-Before presentation to users, all schemes must pass each item:
-
-- [ ] All legs have positive probability flow
-- [ ] All legs have match intelligence support (or explicitly marked as "pure flow" signal)
-- [ ] No rule violations
-- [ ] Total cost matches user budget
-- [ ] Each ticket cost calculation verified
-- [ ] Market diversity coverage
-- [ ] Match coverage meets standard
-- [ ] No duplicate ticket combinations
-- [ ] Narrative unambiguous
-
----
-
-## Academic Foundation
-
-### Core Theoretical Foundations
-
-| Theory | Literature | Application |
-|--------|------------|-------------|
-| Shin Odds Decomposition | Shin (1992) | True probability extraction |
-| Bayesian Updating | Gelman et al. (2013) | Probability flow interpretation |
-| Kelly Criterion | Kelly (1956) | Capital allocation heuristic |
-| Time Series Momentum | Moskowitz et al. (2012) | Amplification effect basis |
-| Information Cascade | Banerjee (1992) | Herding behavior modeling |
-| Prospect Theory | Kahneman & Tversky (1979) | Bias mitigation |
-| Modern Portfolio Theory | Markowitz (1952) | Diversification strategy |
-| Prediction Market Prices | Wolfers & Zitzewitz (2006) | Probability interpretation basis |
-| OODA Loop | Boyd (1987) | Operational architecture |
-
-For complete reference list, see [docs/theory/references.md](docs/theory/references.md)
 
 ---
 
 ## Quick Start
 
-### Installation
-
-```bash
-# Python
-pip install spaf-framework
-
-# JavaScript/TypeScript
-npm install spaf-framework
-```
-
 ### Python Example
 
 ```python
-from spaf import ProbabilityEngine, FlowAnalyzer, SchemeDesigner
+from spaf import ProbabilityEngine, FlowAmplificationEngine, StrategyEngine
 
 # Initialize engines
 engine = ProbabilityEngine()
-analyzer = FlowAnalyzer()
-designer = SchemeDesigner()
+amplifier = FlowAmplificationEngine()
+strategy_engine = StrategyEngine()
 
 # Calculate true probability
-true_probs = engine.calculate_true_probability(odds={'home': 1.5, 'draw': 4.0, 'away': 6.0})
+result = engine.calculate_true_probability({
+    'home': 1.50,
+    'draw': 4.20,
+    'away': 6.00
+})
 
-# Analyze probability flow
-flow_report = analyzer.analyze_flow(initial_probs, latest_probs)
-
-# Generate schemes
-schemes = designer.generate_schemes(flow_report, budget=100)
+print(f"Market Margin: {result.market_margin:.2%}")
+print(f"True Probabilities: {result.true_probabilities}")
 ```
 
 ### TypeScript Example
 
 ```typescript
-import { ProbabilityEngine, FlowAnalyzer, SchemeDesigner } from 'spaf-framework';
+import { ProbabilityEngine, MarketType } from 'spaf-framework';
 
 const engine = new ProbabilityEngine();
-const analyzer = new FlowAnalyzer();
-const designer = new SchemeDesigner();
 
-const trueProbs = engine.calculateTrueProbability({ home: 1.5, draw: 4.0, away: 6.0 });
-const flowReport = analyzer.analyzeFlow(initialProbs, latestProbs);
-const schemes = designer.generateSchemes(flowReport, { budget: 100 });
+const result = engine.calculateTrueProbability({
+    home: 1.50,
+    draw: 4.20,
+    away: 6.00
+});
+
+console.log(`Market Margin: ${result.marketMargin.toFixed(2)}%`);
+console.log(`True Probabilities:`, result.trueProbabilities);
 ```
 
-For more examples, see the [examples/](examples/) directory.
+---
+
+## Documentation
+
+Full documentation is available at:
+- [API Reference](docs/api.md)
+- [User Guide](docs/user_guide.md)
+- [Developer Guide](docs/developer_guide.md)
+- [Mathematical Foundations](docs/mathematical_foundations.md)
 
 ---
 
-## API Documentation
+## API Reference
 
-For complete API documentation, see [docs/api/](docs/api/).
+### ProbabilityEngine
 
----
-
-## MCP Integration
-
-This framework provides an MCP (Model Context Protocol) server, enabling AI assistants to directly invoke analysis capabilities.
-
-### Configuration
-
-```json
-{
-  "mcpServers": {
-    "spaf": {
-      "command": "spaf-mcp-server",
-      "args": []
-    }
-  }
-}
+```python
+calculate_true_probability(quotes: dict) -> TrueProbabilityResult
+analyze_flow(initial: ProbabilitySnapshot, latest: ProbabilitySnapshot) -> FlowReport
+bayesian_update(prior: BayesianPrior, successes: int, trials: int) -> BayesianPosterior
 ```
 
-### Available Tools
+### FlowAmplificationEngine
 
-- `calculate_true_probability` - Calculate true probability
-- `analyze_flow` - Analyze probability flow
-- `calculate_amplification` - Calculate amplification effect
-- `validate_scheme` - Validate scheme compliance
-- `generate_schemes` - Generate optimized schemes
+```python
+calculate_amplification(flow_report: FlowReport, probabilities: dict, gradient_graph: GradientGraph) -> AmplificationReport
+build_correct_score_gradient() -> GradientGraph
+```
 
-For detailed documentation, see [mcp/README.md](mcp/README.md)
+### StrategyEngine
 
----
-
-## Skill Integration
-
-This framework can be used as an AI Agent Skill, supporting rapid integration into various AI assistants.
-
-For detailed documentation, see [skill/README.md](skill/README.md)
+```python
+generate_strategies(amplification_report: AmplificationReport, budget: float, match_data: dict) -> StrategyBundle
+validate_strategy(strategy: Strategy) -> ValidationResult
+```
 
 ---
 
-## Contributing
+## Development
 
-We welcome community contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) to learn how to participate.
-
-### Development Environment Setup
+### Setup Development Environment
 
 ```bash
-# Clone repository
-git clone https://github.com/your-org/spaf-framework.git
-cd spaf-framework
+git clone https://github.com/spaf-framework/spaf.git
+cd spaf
 
-# Python development
+# Python
 python -m venv venv
 source venv/bin/activate
-pip install -e ".[dev]"
+pip install -e .[dev]
 
-# JavaScript development
+# JavaScript/TypeScript
+cd js
 npm install
 npm run build
 ```
@@ -494,31 +236,83 @@ npm run build
 
 ```bash
 # Python tests
-pytest tests/python/
+python -m pytest tests/ -v
 
 # JavaScript tests
 npm test
 ```
 
+### Linting
+
+```bash
+# Python
+flake8 src/ tests/
+
+# JavaScript
+npm run lint
+```
+
+---
+
+## Contributing
+
+We welcome contributions from the academic community. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+### Code of Conduct
+
+This project adheres to the [Contributor Covenant](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+
 ---
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) file for details.
+SPAF is released under the MIT License. See [LICENSE](LICENSE) for details.
+
+### MIT License with Additional Warnings
+
+The MIT license grants broad permissions, but users must understand:
+
+1. **No Warranty**: This software is provided "as is" without warranty of any kind
+2. **Academic Use Only**: The software is designed for research purposes
+3. **Legal Compliance**: Users are solely responsible for legal compliance
+4. **No Liability**: Authors are not liable for any damages or losses
 
 ---
 
-## Disclaimer
+## Academic References
 
-**This framework is for ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY.**
+The SPAF framework is built upon extensive academic research:
 
-- This framework does not constitute any investment advice or gambling advice.
-- Any decisions made using this framework are the user's sole responsibility.
-- The author is not responsible for any losses incurred through use of this framework.
-- Please comply with laws and regulations in your jurisdiction.
+1. **Shin, H. S.** (1992). "Prices of State Contingent Claims with Insider Trading." *Review of Financial Studies*.
+2. **Kelly, J. L.** (1956). "A New Interpretation of Information Rate." *Bell System Technical Journal*.
+3. **Markowitz, H.** (1952). "Portfolio Selection." *Journal of Finance*.
+4. **Elo, A.** (1978). "The Rating of Chessplayers, Past and Present." Arco.
+5. **Savage, L. J.** (1954). "The Foundations of Statistics." Wiley.
+6. **De Finetti, B.** (1937). "Foresight: Its Logical Laws, Its Subjective Sources." *Annales de l'Institut Henri Poincaré*.
+7. **Kahneman, D., & Tversky, A.** (1979). "Prospect Theory: An Analysis of Decision under Risk." *Econometrica*.
+8. **Gigerenzer, G., & Selten, R.** (2001). "Bounded Rationality: The Adaptive Toolbox." MIT Press.
+9. **Holt, C. A., & Laury, S. K.** (2002). "Risk Aversion and Incentive Effects." *American Economic Review*.
+10. **Camerer, C.** (2003). "Behavioral Game Theory: Experiments in Strategic Interaction." Princeton University Press.
+11. **Thaler, R. H.** (2015). "Misbehaving: The Making of Behavioral Economics." W.W. Norton.
+12. **Barberis, N., & Thaler, R.** (2003). "A Survey of Behavioral Finance." *Handbook of the Economics of Finance*.
 
 ---
 
-*Providing marginal advantage through structured analysis, rigorous probability theory, and domain cognition—while acknowledging that in sports prediction, probability itself always has the last laugh.*
+## Citation
 
-*© 2026 — For Academic Research and Educational Purposes Only.*
+If you use SPAF in your academic research, please cite:
+
+```bibtex
+@software{spaf2024,
+  author = {SPAF Team},
+  title = {SPAF: Sports Analytics Framework},
+  year = {2024},
+  version = {4.2.0},
+  url = {https://github.com/spaf-framework/spaf},
+  note = {For academic research purposes only}
+}
+```
+
+---
+
+**SPAF Team** | Academic Research Framework | v4.2.0
