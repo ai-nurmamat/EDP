@@ -1,8 +1,8 @@
-# 🎯 SPAF - Sports Analytics Framework
+# 🎯 期望域感知法
 
-> **全域感知型体育竞彩分析框架**
+> **基于概率流向与全域感知的非对称期望值优势发现方法论**
 >
-> **Domain-Aware, Situational-Awareness-Driven, Probability-Flow-Based Sports Analytics Optimization System**
+> **Expected Domain Perception: A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness**
 
 ![Version](https://img.shields.io/badge/Version-1.0-blue)
 ![Status](https://img.shields.io/badge/Status-Production--Ready-green)
@@ -15,12 +15,6 @@
 ## ⚠️ 风险声明
 
 > **本框架仅供学术研究与教育用途。**
->
-> - 竞彩分析涉及**真实金融风险**。历史概率模式**不保证**未来结果。
-> - 所有竞彩活动因设计原因具有**负期望值**（博彩公司边际）。任何系统都无法在数学上克服这一事实。
-> - **永远不要投入您无法承受损失的资金。** 竞彩应被视为娱乐，而非投资。
-> - 作者对框架产生的任何分析准确性、完整性或盈利能力**不作任何保证**。
-> - 用户对自身决策承担全部责任，必须遵守**当地法律法规**。
 
 ---
 
@@ -71,7 +65,7 @@
 └─────────────────────────────────────────────────────────────┘
 ```
 
-系统采用**有向无环图 (DAG) 流水线架构**，每层产生结构化数据供下游消费。核心设计原则源自三种方法论：
+期望域感知法采用**有向无环图 (DAG) 流水线架构**，每层产生结构化数据供下游消费。核心设计原则源自三种方法论：
 
 1. **OODA循环** (Boyd, 1987) — 观察-定向-决策-执行，每层嵌入迭代精炼
 2. **循环工程** — 通过反馈回路持续校准信号质量
@@ -367,7 +361,7 @@ Confidence = Flow_Strength × Intelligence_Support × Market_Consensus
 
 ### 核心哲学
 
-价值评估引擎是SPAF框架**概率思维哲学**的核心实现：
+价值评估引擎是期望域感知法**核心方法论**的实现：
 
 ```
 不是研究"最可能发生的"
@@ -710,6 +704,6 @@ npm test
 
 ---
 
-*通过结构化分析、严格概率论和全域认知提供边际优势——同时承认在竞彩分析中，概率本身永远有最终发言权。*
+*通过结构化分析、严格概率论和全域认知提供边际优势——同时承认在概率分析中，概率本身永远有最终发言权。*
 
-*© 2026 — 仅供学术研究与教育用途。*
+*© 2026 — 期望域感知法 - 仅供学术研究与教育用途。*

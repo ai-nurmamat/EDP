@@ -1,5 +1,7 @@
 /**
- * SPAF - Sports Probability Analysis Framework
+ * Expected Domain Perception
+ * 期望域感知法
+ *
  * Core probability engine implementation (TypeScript).
  *
  * This module implements the core probability analysis engine based on:
@@ -7,12 +9,14 @@
  * - Bayesian updating for probability flow analysis
  * - Kelly criterion variant for capital allocation
  *
- * @module spaf-framework
+ * A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness
+ *
+ * @module expected-domain-perception
  * @version 1.0.0
  * @license MIT
  *
  * DISCLAIMER: For ACADEMIC RESEARCH AND EDUCATIONAL PURPOSES ONLY.
- * Sports prediction involves real financial risk. No system can guarantee profits.
+ * Probability analysis involves inherent uncertainty. No system can guarantee outcomes.
  */
 
 /**

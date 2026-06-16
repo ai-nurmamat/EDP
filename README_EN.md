@@ -1,8 +1,8 @@
-# 🎯 SPAF - Sports Analytics Framework
+# 🎯 Expected Domain Perception
 
-> **Domain-Aware, Situational-Awareness-Driven, Probability-Flow-Based Sports Analytics Optimization System**
+> **A Methodology for Asymmetric Expected Value Discovery Based on Probability Flow and Domain Awareness**
 >
-> **全域感知型体育竞彩分析框架**
+> **基于概率流向与全域感知的非对称期望值优势发现方法论**
 
 ![Version](https://img.shields.io/badge/Version-1.0-blue)
 ![Status](https://img.shields.io/badge/Status-Production--Ready-green)
@@ -370,7 +370,7 @@ Confidence = Flow_Strength × Intelligence_Support × Market_Consensus
 
 ### Core Philosophy
 
-The Value Assessment Engine implements SPAF's **Probability Philosophy**:
+The Value Assessment Engine implements Expected Domain Perception's **Core Methodology**:
 
 ```
 NOT: Research "most likely to happen"
@@ -713,6 +713,6 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) file for 
 
 ---
 
-*Providing marginal advantage through structured analysis, rigorous probability theory, and domain cognition—while acknowledging that in sports analytics, probability itself always has the last laugh.*
+*Providing marginal advantage through structured analysis, rigorous probability theory, and domain cognition—while acknowledging that in probability analysis, probability itself always has the last laugh.*
 
-*© 2026 — For Academic Research and Educational Purposes Only.*
+*© 2026 — Expected Domain Perception - For Academic Research and Educational Purposes Only.*
